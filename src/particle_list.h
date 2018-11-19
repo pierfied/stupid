@@ -5,15 +5,15 @@
 #ifndef STUPID_PARTICLE_LIST_H
 #define STUPID_PARTICLE_LIST_H
 
-template<int _num_particles, int _num_dims>
+#define NUM_DIMS 3
+
 class particle_list {
 public:
-    static const int num_particles = _num_particles;
-    static const int num_dims = _num_dims;
-    double (*x)[num_particles][num_dims];
-    double (*p)[num_particles][num_dims];
+    const int num_particles;
+    double (*x)[NUM_DIMS];
+    double (*p)[NUM_DIMS];
 
-    particle_list(double (&x)[_num_particles][_num_dims], double (&p)[_num_particles][_num_dims]);
+    particle_list(int num_particles, double x[][NUM_DIMS], double p[][NUM_DIMS]);
 };
 
 #endif //STUPID_PARTICLE_LIST_H
