@@ -6,4 +6,35 @@
 #include "particle_list.h"
 
 void cic_grid::populate_mass_grid() {
+    mass_grid.reset_zero();
+
+    for (int p = 0; p < plist.num_particles; ++p) {
+        int i = int(plist.x(p, 0) - 0.5) % nx;
+        int j = int(plist.x(p, 1) - 0.5) % ny;
+        int k = int(plist.x(p, 2) - 0.5) % nz;
+
+        int i_neighbor = (i + 1) % nx;
+        int j_neighbor = (j + 1) % ny;
+        int k_neighbor = (k + 1) % nz;
+
+        double dx = plist.x(p, 0) - (i + 0.5);
+        double dy = plist.x(p, 1) - (j + 0.5);
+        double dz = plist.x(p, 2) - (k + 0.5);
+
+        double tx = 1 - dx;
+        double ty = 1 - dy;
+        double tz = 1 - dz;
+
+        mass_grid(i, j, k) += mass_grid(i, j, k) + tx * ty * tz;
+
+        mass_grid(i_neighbor, j, k) += mass_grid(i_neighbor, j, k) + dx * ty * tz;
+        mass_grid(i, j_neighbor, k) += mass_grid(i, j_neighbor, k) + tx * dy * tz;
+        mass_grid(i, j, k_neighbor) += mass_grid(i, j, k_neighbor) + tx * ty * dz;
+
+        mass_grid(i_neighbor, j_neighbor, k) += mass_grid(i_neighbor, j_neighbor, k) + dx * dy * tz;
+        mass_grid(i_neighbor, j, k_neighbor) += mass_grid(i_neighbor, j, k_neighbor) + dx * ty * dz;
+        mass_grid(i, j_neighbor, k_neighbor) += mass_grid(i, j_neighbor, k_neighbor) + tx * dy * dz;
+
+        mass_grid(i_neighbor, j_neighbor, k_neighbor) += mass_grid(i_neighbor, j_neighbor, k_neighbor) + dx * dy * dz;
+    }
 }

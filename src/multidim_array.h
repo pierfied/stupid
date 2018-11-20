@@ -21,6 +21,12 @@ public:
     inline T &operator()(int i, int j) {
         return data[i * ny + j];
     }
+
+    void reset_zero(){
+        for (int i = 0; i < nx*ny; ++i) {
+            data[i] = T();
+        }
+    }
 };
 
 
@@ -39,6 +45,12 @@ public:
 
     inline T &operator()(int i, int j, int k) {
         return data[(i * ny + j) * nz + k];
+    }
+
+    void reset_zero(){
+        for (int i = 0; i < nx*ny*nz; ++i) {
+            data[i] = T();
+        }
     }
 };
 
