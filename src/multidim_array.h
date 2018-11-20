@@ -15,7 +15,7 @@ public:
     const int ny;
 
     array_2d(int nx, int ny) : nx(nx), ny(ny) {
-        data = new T[nx * ny];
+        data = new T[nx * ny]();
     }
 
     inline T &operator()(int i, int j) {
@@ -34,7 +34,7 @@ public:
     const int nz;
 
     array_3d(int nx, int ny, int nz) : nx(nx), ny(ny), nz(nz) {
-        data = new T[nx * ny * nz];
+        data = new T[nx * ny * nz]();
     }
 
     inline T &operator()(int i, int j, int k) {
