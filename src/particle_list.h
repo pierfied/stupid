@@ -5,15 +5,16 @@
 #ifndef STUPID_PARTICLE_LIST_H
 #define STUPID_PARTICLE_LIST_H
 
-#define NUM_DIMS 3
+#include "multidim_array.h"
 
 class particle_list {
 public:
     const int num_particles;
-    double (*x)[NUM_DIMS];
-    double (*p)[NUM_DIMS];
+    const int num_dims;
+    array_2d<double> x;
+    array_2d<double> p;
 
-    particle_list(int num_particles, double x[][NUM_DIMS], double p[][NUM_DIMS]);
+    particle_list(array_2d<double> x, array_2d<double> p) : x(x), p(p), num_particles(x.nx), num_dims(x.ny) {}
 };
 
 #endif //STUPID_PARTICLE_LIST_H
