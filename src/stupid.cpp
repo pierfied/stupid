@@ -1,6 +1,7 @@
 #include "stupid.h"
 #include "multidim_array.h"
 #include "particle_list.h"
+#include "cic_grid.h"
 
 #include <iostream>
 
@@ -22,5 +23,11 @@ int main() {
 
     particle_list plist(x, p);
 
-    std::cout << plist.x(0,0) << "\t\t" << plist.x(1,1) << std::endl;
+    std::cout << plist.x(0, 0) << "\t\t" << plist.x(1, 1) << std::endl;
+
+    cic_grid a(2, 2, 2, plist);
+
+    x(0, 0) = -1;
+
+    std::cout << a.plist.x(0,0) << std::endl;
 }

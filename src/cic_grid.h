@@ -8,7 +8,10 @@
 
 #include "grid.h"
 
-class cic_grid : grid {
+class cic_grid : public grid {
+public:
+    cic_grid(int nx, int ny, int nz, particle_list &plist) : grid(nx, ny, nz, plist) {}
+
     void populate_mass_grid() override;
 };
 
