@@ -1,5 +1,6 @@
 #include "stupid.h"
 #include "multidim_array.h"
+#include "particle_list.h"
 
 #include <iostream>
 
@@ -14,8 +15,12 @@ int main() {
     int num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
-    x(0,0) = 1;
-    x(1,1) = 2;
+    x(0, 0) = 1;
+    x(1, 1) = 2;
 
-    std::cout << x(0,0) << "\t\t" << x(1,1) << "\t\t" << x(0,1) << std::endl;
+    array_2d<double> p(num_particles, num_dims);
+
+    particle_list plist(x, p);
+
+    std::cout << plist.x(0,0) << "\t\t" << plist.x(1,1) << std::endl;
 }
