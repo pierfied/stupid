@@ -30,4 +30,8 @@ int main() {
     x(0, 0) = -1;
 
     std::cout << a.plist.x(0,0) << std::endl;
+
+    a.plist.x.reset_zero();
+
+    std::cout << a.plist.x(0,0) << std::endl;
 }
