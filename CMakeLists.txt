@@ -15,6 +15,6 @@ file(GLOB test_source test/*.cpp test/*.h)
 
 add_executable(test ${test_source})
 
-target_link_libraries(test gtest stupid)
+target_link_libraries(test stupid gtest gtest_main pthread)
 
 target_include_directories(test PUBLIC include src)
