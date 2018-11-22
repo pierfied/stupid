@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 
 #include "test_multidim_array.cpp"
+#include "test_cic_grid.cpp"
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

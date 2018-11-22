@@ -11,9 +11,7 @@ add_library(stupid ${source})
 target_include_directories(stupid PUBLIC include)
 
 
-file(GLOB test_source test/*.cpp test/*.h)
-
-add_executable(test ${test_source})
+add_executable(test test/test.cpp)
 
 target_link_libraries(test stupid gtest gtest_main pthread)
 
