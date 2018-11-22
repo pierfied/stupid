@@ -22,6 +22,8 @@ TEST(cic_grid, one_mass_per_cell) {
                 x(cur_particle, 0) = i;
                 x(cur_particle, 1) = j;
                 x(cur_particle, 2) = k;
+
+                cur_particle++;
             }
         }
     }

@@ -16,11 +16,11 @@ public:
     const int ny;
     const int nz;
 
-    particle_list plist;
+    particle_list *plist;
 
     array_3d<double> mass_grid;
 
-    grid(int nx, int ny, int nz, particle_list &plist) : nx(nx), ny(ny), nz(nz), mass_grid(nx, ny, nz), plist(plist) {}
+    grid(int nx, int ny, int nz, particle_list &plist) : nx(nx), ny(ny), nz(nz), mass_grid(nx, ny, nz), plist(&plist) {}
 
     virtual void populate_mass_grid() = 0;
 };

@@ -23,13 +23,17 @@ public:
         return data[i * ny + j];
     }
 
-    void reset_zero(){
-        for (int i = 0; i < nx*ny; ++i) {
+    inline T &index(int i, int j) {
+        return operator()(i, j);
+    }
+
+    void reset_zero() {
+        for (int i = 0; i < nx * ny; ++i) {
             data[i] = T();
         }
     }
 
-    ~array_2d(){
+    ~array_2d() {
         delete[] data;
     }
 };
@@ -52,13 +56,17 @@ public:
         return data[(i * ny + j) * nz + k];
     }
 
-    void reset_zero(){
-        for (int i = 0; i < nx*ny*nz; ++i) {
+    inline T &index(int i, int j, int k) {
+        return operator()(i, j, k);
+    }
+
+    void reset_zero() {
+        for (int i = 0; i < nx * ny * nz; ++i) {
             data[i] = T();
         }
     }
 
-    ~array_3d(){
+    ~array_3d() {
         delete[] data;
     }
 };
