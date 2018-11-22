@@ -5,6 +5,7 @@
 #ifndef STUPID_MULTIDIM_ARRAY_H
 #define STUPID_MULTIDIM_ARRAY_H
 
+#include <stdlib.h>
 
 template<typename T>
 class array_2d {
@@ -26,6 +27,10 @@ public:
         for (int i = 0; i < nx*ny; ++i) {
             data[i] = T();
         }
+    }
+
+    ~array_2d(){
+        delete[] data;
     }
 };
 
@@ -51,6 +56,10 @@ public:
         for (int i = 0; i < nx*ny*nz; ++i) {
             data[i] = T();
         }
+    }
+
+    ~array_3d(){
+        delete[] data;
     }
 };
 
