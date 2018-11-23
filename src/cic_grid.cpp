@@ -4,8 +4,8 @@
 
 #include "cic_grid.h"
 
-void cic_grid::populate_mass_grid() {
-    mass_grid.reset_zero();
+void cic_grid::populate_delta_grid() {
+    delta_grid.reset_zero();
 
     for (int p = 0; p < plist->num_particles; ++p) {
         int i = int(plist->x->index(p, 0)) % nx;
@@ -24,16 +24,26 @@ void cic_grid::populate_mass_grid() {
         double ty = 1 - dy;
         double tz = 1 - dz;
 
-        mass_grid(i, j, k) += tx * ty * tz;
+        delta_grid(i, j, k) += tx * ty * tz;
 
-        mass_grid(i_neighbor, j, k) += dx * ty * tz;
-        mass_grid(i, j_neighbor, k) += tx * dy * tz;
-        mass_grid(i, j, k_neighbor) += tx * ty * dz;
+        delta_grid(i_neighbor, j, k) += dx * ty * tz;
+        delta_grid(i, j_neighbor, k) += tx * dy * tz;
+        delta_grid(i, j, k_neighbor) += tx * ty * dz;
 
-        mass_grid(i_neighbor, j_neighbor, k) += dx * dy * tz;
-        mass_grid(i_neighbor, j, k_neighbor) += dx * ty * dz;
-        mass_grid(i, j_neighbor, k_neighbor) += tx * dy * dz;
+        delta_grid(i_neighbor, j_neighbor, k) += dx * dy * tz;
+        delta_grid(i_neighbor, j, k_neighbor) += dx * ty * dz;
+        delta_grid(i, j_neighbor, k_neighbor) += tx * dy * dz;
 
-        mass_grid(i_neighbor, j_neighbor, k_neighbor) += dx * dy * dz;
+        delta_grid(i_neighbor, j_neighbor, k_neighbor) += dx * dy * dz;
+    }
+
+    double avg_particle_density = (double) plist->num_particles / (nx * ny * nz);
+
+    for (int i = 0; i < nx; ++i) {
+        for (int j = 0; j < ny; ++j) {
+            for (int k = 0; k < nz; ++k) {
+                delta_grid(i, j, k) = delta_grid(i, j, k) / avg_particle_density - 1;
+            }
+        }
     }
 }

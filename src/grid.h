@@ -18,11 +18,11 @@ public:
 
     particle_list *plist;
 
-    array_3d<double> mass_grid;
+    array_3d<double> delta_grid;
 
-    grid(int nx, int ny, int nz, particle_list &plist) : nx(nx), ny(ny), nz(nz), mass_grid(nx, ny, nz), plist(&plist) {}
+    grid(int nx, int ny, int nz, particle_list &plist) : nx(nx), ny(ny), nz(nz), delta_grid(nx, ny, nz), plist(&plist) {}
 
-    virtual void populate_mass_grid() = 0;
+    virtual void populate_delta_grid() = 0;
 };
 
 

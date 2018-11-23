@@ -6,7 +6,7 @@
 #include <multidim_array.h>
 #include <cic_grid.h>
 
-TEST(cic_grid, one_mass_per_cell) {
+TEST(cic_grid, flat_density) {
     int n = 10;
 
     int num_particles = n * n * n;
@@ -31,12 +31,12 @@ TEST(cic_grid, one_mass_per_cell) {
     particle_list plist(x, p);
     cic_grid grid(n, n, n, plist);
 
-    grid.populate_mass_grid();
+    grid.populate_delta_grid();
 
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             for (int k = 0; k < n; ++k) {
-                EXPECT_DOUBLE_EQ(1, grid.mass_grid(i, j, k));
+                EXPECT_DOUBLE_EQ(0, grid.delta_grid(i, j, k));
             }
         }
     }

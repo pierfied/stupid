@@ -12,7 +12,7 @@ class tsc_grid : public grid {
 public:
     tsc_grid(int nx, int ny, int nz, particle_list &plist) : grid(nx, ny, nz, plist) {}
 
-    void populate_mass_grid() override;
+    void populate_delta_grid() override;
 };
 
 
