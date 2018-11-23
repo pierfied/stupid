@@ -8,6 +8,8 @@ file(GLOB source src/*.cpp src/*.h)
 
 add_library(stupid ${source})
 
+target_link_libraries(stupid m fftw3)
+
 target_include_directories(stupid PUBLIC include)
 
 

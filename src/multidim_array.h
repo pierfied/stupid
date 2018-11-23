@@ -9,9 +9,9 @@
 
 template<typename T>
 class array_2d {
+public:
     T *data;
 
-public:
     const int nx;
     const int ny;
 
@@ -41,9 +41,9 @@ public:
 
 template<typename T>
 class array_3d {
+public:
     T *data;
 
-public:
     const int nx;
     const int ny;
     const int nz;
