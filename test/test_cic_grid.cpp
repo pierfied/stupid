@@ -255,7 +255,7 @@ TEST(cic_grid, alternating_potential) {
                     case 2:
                         EXPECT_DOUBLE_EQ(edge_potential, grid.real_grid(i, j, k));
                         break;
-                    case 3:
+                    default:
                         EXPECT_DOUBLE_EQ(corner_potential, grid.real_grid(i, j, k));
                         break;
                 }
@@ -273,7 +273,7 @@ TEST(cic_grid, accel_2body_x) {
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    x(1,0) = 1;
+    x(1, 0) = 1;
 
     cosmology cosmo(1, 0, 0, 0);
 
@@ -308,7 +308,7 @@ TEST(cic_grid, accel_2body_y) {
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    x(1,1) = 1;
+    x(1, 1) = 1;
 
     cosmology cosmo(1, 0, 0, 0);
 
@@ -343,7 +343,7 @@ TEST(cic_grid, accel_2body_z) {
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    x(1,2) = 1;
+    x(1, 2) = 1;
 
     cosmology cosmo(1, 0, 0, 0);
 
