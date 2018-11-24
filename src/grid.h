@@ -20,6 +20,8 @@ public:
 
     particle_list *plist;
 
+    const double avg_particle_density;
+
     cosmology cosmo;
 
     array_3d<double> real_grid;
@@ -40,7 +42,10 @@ public:
                                                                                                        fourier_grid.data,
                                                                                                        real_grid.data,
                                                                                                        FFTW_MEASURE)),
-                                                                          cosmo(cosmo) {}
+                                                                          cosmo(cosmo),
+                                                                          avg_particle_density(
+                                                                                  (double) plist.num_particles /
+                                                                                  (nx * ny * nz)) {}
 
     ~grid() {
         fftw_destroy_plan(forward_plan);
@@ -56,6 +61,10 @@ public:
     void apply_greens_func(double a);
 
     void compute_potential(double a);
+
+    inline double grid_accel(int i, int j, int k, int dim);
+
+    inline virtual double particle_accel(int particle_ind, int dim) = 0;
 };
 
 
