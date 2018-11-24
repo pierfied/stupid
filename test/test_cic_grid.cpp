@@ -263,3 +263,108 @@ TEST(cic_grid, alternating_potential) {
         }
     }
 }
+
+TEST(cic_grid, accel_2body_x) {
+    int n = 10;
+
+    int num_particles = 2;
+    int num_dims = 3;
+
+    array_2d<double> x(num_particles, num_dims);
+    array_2d<double> p(num_particles, num_dims);
+
+    x(1,0) = 1;
+
+    cosmology cosmo(1, 0, 0, 0);
+
+    particle_list plist(x, p);
+    cic_grid grid(n, n, n, plist, cosmo);
+
+    double a = 1;
+    grid.compute_potential(a);
+
+    double accel_0_x = grid.particle_accel(0, 0);
+    double accel_0_y = grid.particle_accel(0, 1);
+    double accel_0_z = grid.particle_accel(0, 2);
+
+    double accel_1_x = grid.particle_accel(1, 0);
+    double accel_1_y = grid.particle_accel(1, 1);
+    double accel_1_z = grid.particle_accel(1, 2);
+
+    EXPECT_GT(accel_0_x, 0);
+    EXPECT_NEAR(accel_0_x, -accel_1_x, 1e-8);
+    EXPECT_NEAR(0, accel_0_y, 1e-8);
+    EXPECT_NEAR(0, accel_0_z, 1e-8);
+    EXPECT_NEAR(0, accel_1_y, 1e-8);
+    EXPECT_NEAR(0, accel_1_z, 1e-8);
+}
+
+TEST(cic_grid, accel_2body_y) {
+    int n = 10;
+
+    int num_particles = 2;
+    int num_dims = 3;
+
+    array_2d<double> x(num_particles, num_dims);
+    array_2d<double> p(num_particles, num_dims);
+
+    x(1,1) = 1;
+
+    cosmology cosmo(1, 0, 0, 0);
+
+    particle_list plist(x, p);
+    cic_grid grid(n, n, n, plist, cosmo);
+
+    double a = 1;
+    grid.compute_potential(a);
+
+    double accel_0_x = grid.particle_accel(0, 0);
+    double accel_0_y = grid.particle_accel(0, 1);
+    double accel_0_z = grid.particle_accel(0, 2);
+
+    double accel_1_x = grid.particle_accel(1, 0);
+    double accel_1_y = grid.particle_accel(1, 1);
+    double accel_1_z = grid.particle_accel(1, 2);
+
+    EXPECT_GT(accel_0_y, 0);
+    EXPECT_NEAR(accel_0_y, -accel_1_y, 1e-8);
+    EXPECT_NEAR(0, accel_0_z, 1e-8);
+    EXPECT_NEAR(0, accel_0_x, 1e-8);
+    EXPECT_NEAR(0, accel_1_z, 1e-8);
+    EXPECT_NEAR(0, accel_1_x, 1e-8);
+}
+
+TEST(cic_grid, accel_2body_z) {
+    int n = 10;
+
+    int num_particles = 2;
+    int num_dims = 3;
+
+    array_2d<double> x(num_particles, num_dims);
+    array_2d<double> p(num_particles, num_dims);
+
+    x(1,2) = 1;
+
+    cosmology cosmo(1, 0, 0, 0);
+
+    particle_list plist(x, p);
+    cic_grid grid(n, n, n, plist, cosmo);
+
+    double a = 1;
+    grid.compute_potential(a);
+
+    double accel_0_x = grid.particle_accel(0, 0);
+    double accel_0_y = grid.particle_accel(0, 1);
+    double accel_0_z = grid.particle_accel(0, 2);
+
+    double accel_1_x = grid.particle_accel(1, 0);
+    double accel_1_y = grid.particle_accel(1, 1);
+    double accel_1_z = grid.particle_accel(1, 2);
+
+    EXPECT_GT(accel_0_z, 0);
+    EXPECT_NEAR(accel_0_z, -accel_1_z, 1e-8);
+    EXPECT_NEAR(0, accel_0_y, 1e-8);
+    EXPECT_NEAR(0, accel_0_x, 1e-8);
+    EXPECT_NEAR(0, accel_1_y, 1e-8);
+    EXPECT_NEAR(0, accel_1_x, 1e-8);
+}

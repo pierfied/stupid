@@ -69,19 +69,19 @@ public:
         switch (dim) {
             case 0:
                 plus_neighbor = (i + 1) % nx;
-                minus_neighbor = (i - 1) % nx;
+                minus_neighbor = (nx + (i - 1) % nx) % nx;
 
                 return -(real_grid(plus_neighbor, j, k) - real_grid(minus_neighbor, j, k)) / 2;
             case 1:
                 plus_neighbor = (j + 1) % ny;
-                minus_neighbor = (j - 1) % ny;
+                minus_neighbor = (ny + (j - 1) % ny) % ny;
 
                 return -(real_grid(i, plus_neighbor, k) - real_grid(i, minus_neighbor, k)) / 2;
             default:
                 plus_neighbor = (k + 1) % nz;
-                minus_neighbor = (k - 1) % nz;
+                minus_neighbor = (nz + (k - 1) % nz) % nz;
 
-                return -(real_grid(i, i, plus_neighbor) - real_grid(i, j, minus_neighbor)) / 2;
+                return -(real_grid(i, j, plus_neighbor) - real_grid(i, j, minus_neighbor)) / 2;
         }
     }
 
