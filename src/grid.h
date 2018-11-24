@@ -62,7 +62,28 @@ public:
 
     void compute_potential(double a);
 
-    inline double grid_accel(int i, int j, int k, int dim);
+    inline double grid_accel(int i, int j, int k, int dim) {
+        int plus_neighbor;
+        int minus_neighbor;
+
+        switch (dim) {
+            case 0:
+                plus_neighbor = (i + 1) % nx;
+                minus_neighbor = (i - 1) % nx;
+
+                return -(real_grid(plus_neighbor, j, k) - real_grid(minus_neighbor, j, k)) / 2;
+            case 1:
+                plus_neighbor = (j + 1) % ny;
+                minus_neighbor = (j - 1) % ny;
+
+                return -(real_grid(i, plus_neighbor, k) - real_grid(i, minus_neighbor, k)) / 2;
+            default:
+                plus_neighbor = (k + 1) % nz;
+                minus_neighbor = (k - 1) % nz;
+
+                return -(real_grid(i, i, plus_neighbor) - real_grid(i, j, minus_neighbor)) / 2;
+        }
+    }
 
     inline virtual double particle_accel(int particle_ind, int dim) = 0;
 };
