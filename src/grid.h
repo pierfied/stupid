@@ -85,7 +85,7 @@ public:
         }
     }
 
-    inline virtual double particle_accel(int particle_ind, int dim) = 0;
+    virtual double particle_accel(int particle_ind, int dim) = 0;
 };
 
 
