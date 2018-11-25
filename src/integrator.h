@@ -9,9 +9,9 @@
 #include "grid.h"
 
 class integrator {
+public:
     grid *g;
 
-public:
     integrator(grid &g) : g(&g) {}
 
     virtual void run_sim() = 0;
