@@ -10,10 +10,11 @@
 class particle_list {
 public:
     const int num_particles;
+    const int num_dims;
     array_2d<double> *x;
     array_2d<double> *p;
 
-    particle_list(array_2d<double> &x, array_2d<double> &p) : x(&x), p(&p), num_particles(x.nx) {}
+    particle_list(array_2d<double> &x, array_2d<double> &p) : x(&x), p(&p), num_particles(x.nx), num_dims(x.ny) {}
 };
 
 #endif //STUPID_PARTICLE_LIST_H
