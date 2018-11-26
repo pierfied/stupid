@@ -7,6 +7,7 @@
 #include "test_multidim_array.cpp"
 #include "test_cic_grid.cpp"
 #include "test_leapfrog_integrator.cpp"
+#include "test_tsc_grid.cpp"
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

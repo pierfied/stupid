@@ -12,107 +12,92 @@ void tsc_grid::populate_delta_grid() {
         int j = int(plist->x->index(p, 1)) % ny;
         int k = int(plist->x->index(p, 2)) % nz;
 
-        /*
-        int i_neighbor = (i + 1) % nx;
-        int j_neighbor = (j + 1) % ny;
-        int k_neighbor = (k + 1) % nz;
-        */
+        int iu = (i + 1) % nx;
+        int ju = (j + 1) % ny;
+        int ku = (k + 1) % nz;
+        int il = ((i - 1) % nx + nx) % nx;
+        int jl = ((j - 1) % ny + ny) % ny;
+        int kl = ((k - 1) % nz + nz) % nz;
 
         double dx = plist->x->index(p, 0) - i;
         double dy = plist->x->index(p, 1) - j;
         double dz = plist->x->index(p, 2) - k;
 
-        double srx = 0.75 - dx*dx;
-        double sry = 0.75 - dy*dy;
-        double srz = 0.75 - dz*dz;
+        double tx = 0.75 - dx*dx;
+        double ty = 0.75 - dy*dy;
+        double tz = 0.75 - dz*dz;
 
-        double lrx = 0.5*(1.5 - abs(dx))*(1.5 - abs(dx));
-        double lry = 0.5*(1.5 - abs(dy))*(1.5 - abs(dy));
-        double lrz = 0.5*(1.5 - abs(dz))*(1.5 - abs(dz));
+        double srx = 0.5*(0.5 + abs(dx))*(0.5 + abs(dx));
+        double sry = 0.5*(0.5 + abs(dy))*(0.5 + abs(dy));
+        double srz = 0.5*(0.5 + abs(dz))*(0.5 + abs(dz));
 
-        real_grid(i, j, k) += srx * sry * srz;
+        double lrx = 0.5*(0.5 - abs(dx))*(0.5 - abs(dx));
+        double lry = 0.5*(0.5 - abs(dy))*(0.5 - abs(dy));
+        double lrz = 0.5*(0.5 - abs(dz))*(0.5 - abs(dz));
+
+        if (abs(dx) > 1.5) lrx = 0.;
+        if (abs(dy) > 1.5) lry = 0.;
+        if (abs(dz) > 1.5) lrz = 0.;
 
         double ux, uy, uz, lx, ly, lz;
 
-        if (abs(dx) < 0.5) {
+        if (dx >= 0.) {
             ux = srx;
             lx = lrx;
         }
-        else if (abs(dx) < 1.5) {
+        else if (dx < 0.) {
             ux = lrx;
             lx = srx;
         }
-        else {
-            ux = 0.;
-            lx = 0.;
-        }
 
-        if (abs(dy) < 0.5) {
+        if (dy >= 0.) {
             uy = sry;
             ly = lry;
         }
-        else if (abs(dy) < 1.5) {
+        else if (dy < 0.) {
             uy = lry;
             ly = sry;
         }
-        else {
-            uy = 0.;
-            ly = 0.;
-        }
 
-        if (abs(dz) < 0.5) {
+        if (dz >= 0.) {
             uz = srz;
             lz = lrz;
         }
-        else if (abs(dz) < 1.5) {
+        else if (dz < 0.) {
             uz = lrz;
             lz = srz;
         }
-        else {
-            uz = 0.;
-            lz = 0.;
-        }
 
-        real_grid(i+1, j, k) += ux * sry * srz;
-        real_grid(i, j+1, k) += srx * uy * srz;
-        real_grid(i, j, k+1) += srx * sry * uz;
-        real_grid(i+1, j+1, k) += ux * uy * srz;
-        real_grid(i+1, j, k+1) += ux * sry * uz;
-        real_grid(i, j+1, k+1) += srx * uy * uz;
-        real_grid(i+1, j+1, k+1) += ux * uy * uz;
+        real_grid(i, j, k) += tx * ty * tz;
 
+        real_grid(iu, j, k) += ux * ty * tz;
+        real_grid(i, ju, k) += tx * uy * tz;
+        real_grid(i, j, ku) += tx * ty * uz;
+        real_grid(il, j, k) += lx * ty * tz;
+        real_grid(i, jl, k) += tx * ly * tz;
+        real_grid(i, j, kl) += tx * ty * lz;
 
-        real_grid(i-1, j, k) += lx * sry * srz;
-        real_grid(i-1, j+1, k) += lx * uy * srz;
-        real_grid(i-1, j, k+1) += lx * sry * uz;
-        real_grid(i-1, j+1, k+1) += dx * dy * dz;
+        real_grid(iu, ju, k) += ux * uy * tz;
+        real_grid(iu, j, ku) += ux * ty * uz;
+        real_grid(i, ju, ku) += tx * uy * uz;
+        real_grid(il, jl, k) += lx * ly * tz;
+        real_grid(il, j, kl) += lx * ty * lz;
+        real_grid(i, jl, kl) += tx * ly * lz;
+        real_grid(iu, jl, k) += ux * ly * tz;
+        real_grid(iu, j, kl) += ux * ty * lz;
+        real_grid(i, ju, kl) += tx * uy * lz;
+        real_grid(il, ju, k) += lx * uy * tz;
+        real_grid(il, j, ku) += lx * ty * uz;
+        real_grid(i, jl, ku) += tx * ly * uz;
 
-
-        real_grid(i, j-1, k) += srx * ly * srz;
-        real_grid(i+1, j-1, k) += ux * ly * srz;
-        real_grid(i, j-1, k+1) += srx * ly * uz;
-        real_grid(i+1, j-1, k+1) += ux * ly * uz;
-
-
-        real_grid(i, j, k-1) += srx * sry * lz;
-        real_grid(i+1, j, k-1) += ux * sry * lz;
-        real_grid(i, j+1, k-1) += srx * uy * lz;
-        real_grid(i+1, j+1, k-1) += ux * uy * lz;
-
-
-        real_grid(i-1, j-1, k) += lx * ly * srz;
-        real_grid(i-1, j-1, k+1) += lx * ly * uz;
-
-
-        real_grid(i-1, j, k-1) += lx * sry * lz;
-        real_grid(i-1, j+1, k-1) += lx * uy * lz;
-
-
-        real_grid(i, j-1, k-1) += srx * ly * lz;
-        real_grid(i+1, j-1, k-1) += ux * ly * lz;
-
-
-        real_grid(i-1, j-1, k-1) += lx * ly * lz;
+        real_grid(iu, ju, ku) += ux * uy * uz;
+        real_grid(iu, ju, kl) += ux * uy * lz;
+        real_grid(iu, jl, ku) += ux * ly * uz;
+        real_grid(iu, jl, kl) += ux * ly * lz;
+        real_grid(il, ju, ku) += lx * uy * uz;
+        real_grid(il, ju, kl) += lx * uy * lz;
+        real_grid(il, jl, ku) += lx * ly * uz;
+        real_grid(il, jl, kl) += lx * ly * lz;
     }
 
     for (int i = 0; i < nx; ++i) {
