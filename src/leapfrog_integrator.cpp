@@ -44,13 +44,25 @@ void leapfrog_integrator::full_step(double a) {
 void leapfrog_integrator::run_sim() {
     double a = a0;
 
+    if (write_pos) {
+        write_positions(a);
+    }
+
     backward_half_step_p(a);
 
     for (int i = 0; i < num_steps; ++i) {
         full_step(a);
 
         a += delta_a;
+
+        if (write_pos && (i + 1) % write_nth_step == 0) {
+            write_positions(a);
+        }
     }
 
     forward_half_step_p(a);
+
+    if (write_pos && num_steps % write_nth_step != 0) {
+        write_positions(a);
+    }
 }

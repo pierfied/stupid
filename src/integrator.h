@@ -19,7 +19,7 @@ public:
 
     integrator(grid &g, std::string file_prefix) : g(&g) , file_prefix(file_prefix){}
 
-    void write_positions();
+    void write_positions(double a);
 
     virtual void run_sim() = 0;
 };

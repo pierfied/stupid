@@ -15,6 +15,6 @@ target_include_directories(stupid PUBLIC include)
 
 add_executable(test test/test.cpp)
 
-target_link_libraries(test stupid gtest gtest_main pthread)
+target_link_libraries(test stupid gtest gtest_main pthread stdc++fs)
 
 target_include_directories(test PUBLIC include src)

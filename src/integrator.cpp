@@ -5,13 +5,12 @@
 #include <fstream>
 #include "integrator.h"
 
-#define NUMDIMS 3
-
-void integrator::write_positions() {
-    std::string fname = file_prefix + std::to_string(write_num++);
+void integrator::write_positions(double a) {
+    std::string fname = file_prefix + "_" + std::to_string(write_num++) + ".bin";
     std::ofstream file(fname, std::ios::out | std::ios::binary);
 
-    file.write((char *) g->plist->x->data, sizeof(double) * g->plist->num_particles * NUMDIMS);
+    file.write((char *) &a, sizeof(double));
+    file.write((char *) g->plist->x->data, sizeof(double) * g->plist->num_particles * g->plist->num_dims);
 
     file.close();
 }
