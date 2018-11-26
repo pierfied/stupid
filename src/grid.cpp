@@ -14,11 +14,11 @@ void grid::fft() {
 void grid::ifft() {
     fftw_execute(backward_plan);
 
-    double norm = nx * ny * nz;
+    double norm = n * n * n;
 
-    for (int i = 0; i < nx; ++i) {
-        for (int j = 0; j < ny; ++j) {
-            for (int k = 0; k < nz; ++k) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            for (int k = 0; k < n; ++k) {
                 real_grid(i, j, k) /= norm;
             }
         }
@@ -28,12 +28,12 @@ void grid::ifft() {
 void grid::apply_greens_func(double a) {
     double factor = -3 * cosmo.Omega_0 / (8 * a);
 
-    for (int i = 0; i < nx; ++i) {
-        for (int j = 0; j < ny; ++j) {
-            for (int k = 0; k < (nz / 2 + 1); ++k) {
-                double sin_x = sin(M_PI * i / nx);
-                double sin_y = sin(M_PI * j / ny);
-                double sin_z = sin(M_PI * k / nz);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            for (int k = 0; k < (n / 2 + 1); ++k) {
+                double sin_x = sin(M_PI * i / n);
+                double sin_y = sin(M_PI * j / n);
+                double sin_z = sin(M_PI * k / n);
 
                 double G = factor / (sin_x * sin_x + sin_y * sin_y + sin_z * sin_z);
 

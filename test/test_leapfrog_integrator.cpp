@@ -20,7 +20,7 @@ TEST(leapfrog_integrator, motion_2body_x) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a0 = 0.5;
     double af = 1;
@@ -53,7 +53,7 @@ TEST(leapfrog_integrator, motion_2body_y) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a0 = 0.5;
     double af = 1;
@@ -86,7 +86,7 @@ TEST(leapfrog_integrator, motion_2body_z) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a0 = 0.5;
     double af = 1;
@@ -128,7 +128,7 @@ TEST(leapfrog_integrator, flat_density) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmology(1, 0, 0, 0));
+    cic_grid grid(n, plist, cosmology(1, 0, 0, 0));
 
     double a0 = 0.5;
     double af = 1;
@@ -176,7 +176,7 @@ TEST(leapfrog_integrator, alternating_density) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmology(1, 0, 0, 0));
+    cic_grid grid(n, plist, cosmology(1, 0, 0, 0));
 
     double a0 = 0.5;
     double af = 1;
@@ -226,7 +226,7 @@ TEST(leapfrog_integrator, particle_cube) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a0 = 0.5;
     double af = 1;

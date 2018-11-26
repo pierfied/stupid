@@ -10,18 +10,18 @@
 
 class cic_grid : public grid {
 public:
-    cic_grid(int nx, int ny, int nz, particle_list &plist, cosmology cosmo) : grid(nx, ny, nz, plist, cosmo) {}
+    cic_grid(int n, particle_list &plist, cosmology cosmo) : grid(n, plist, cosmo) {}
 
     void populate_delta_grid() override;
 
     inline double particle_accel(int particle_ind, int dim) override {
-        int i = int(plist->x->index(particle_ind, 0)) % nx;
-        int j = int(plist->x->index(particle_ind, 1)) % ny;
-        int k = int(plist->x->index(particle_ind, 2)) % nz;
+        int i = int(plist->x->index(particle_ind, 0)) % n;
+        int j = int(plist->x->index(particle_ind, 1)) % n;
+        int k = int(plist->x->index(particle_ind, 2)) % n;
 
-        int i_neighbor = (i + 1) % nx;
-        int j_neighbor = (j + 1) % ny;
-        int k_neighbor = (k + 1) % nz;
+        int i_neighbor = (i + 1) % n;
+        int j_neighbor = (j + 1) % n;
+        int k_neighbor = (k + 1) % n;
 
         double dx = plist->x->index(particle_ind, 0) - i;
         double dy = plist->x->index(particle_ind, 1) - j;

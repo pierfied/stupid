@@ -29,7 +29,7 @@ TEST(cic_grid, flat_density) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmology(0, 0, 0, 0));
+    cic_grid grid(n, plist, cosmology(0, 0, 0, 0));
 
     grid.populate_delta_grid();
 
@@ -65,7 +65,7 @@ TEST(cic_grid, flat_density_half_offset) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmology(0, 0, 0, 0));
+    cic_grid grid(n, plist, cosmology(0, 0, 0, 0));
 
     grid.populate_delta_grid();
 
@@ -101,7 +101,7 @@ TEST(cic_grid, alternating_density) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmology(0, 0, 0, 0));
+    cic_grid grid(n, plist, cosmology(0, 0, 0, 0));
 
     grid.populate_delta_grid();
 
@@ -141,7 +141,7 @@ TEST(cic_grid, fft_recover) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmology(0, 0, 0, 0));
+    cic_grid grid(n, plist, cosmology(0, 0, 0, 0));
 
     grid.populate_delta_grid();
 
@@ -187,7 +187,7 @@ TEST(cic_grid, flat_potential) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a = 1;
     grid.compute_potential(a);
@@ -226,7 +226,7 @@ TEST(cic_grid, alternating_potential) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a = 1;
     grid.compute_potential(a);
@@ -278,7 +278,7 @@ TEST(cic_grid, accel_2body_x) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a = 1;
     grid.compute_potential(a);
@@ -313,7 +313,7 @@ TEST(cic_grid, accel_2body_y) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a = 1;
     grid.compute_potential(a);
@@ -348,7 +348,7 @@ TEST(cic_grid, accel_2body_z) {
     cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
-    cic_grid grid(n, n, n, plist, cosmo);
+    cic_grid grid(n, plist, cosmo);
 
     double a = 1;
     grid.compute_potential(a);

@@ -8,16 +8,16 @@ void tsc_grid::populate_delta_grid() {
     real_grid.reset_zero();
 
     for (int p = 0; p < plist->num_particles; ++p) {
-        int i = int(plist->x->index(p, 0)) % nx;
-        int j = int(plist->x->index(p, 1)) % ny;
-        int k = int(plist->x->index(p, 2)) % nz;
+        int i = int(plist->x->index(p, 0)) % n;
+        int j = int(plist->x->index(p, 1)) % n;
+        int k = int(plist->x->index(p, 2)) % n;
 
-        int iu = (i + 1) % nx;
-        int ju = (j + 1) % ny;
-        int ku = (k + 1) % nz;
-        int il = ((i - 1) % nx + nx) % nx;
-        int jl = ((j - 1) % ny + ny) % ny;
-        int kl = ((k - 1) % nz + nz) % nz;
+        int iu = (i + 1) % n;
+        int ju = (j + 1) % n;
+        int ku = (k + 1) % n;
+        int il = ((i - 1) % n + n) % n;
+        int jl = ((j - 1) % n + n) % n;
+        int kl = ((k - 1) % n + n) % n;
 
         double dx = plist->x->index(p, 0) - i;
         double dy = plist->x->index(p, 1) - j;
@@ -100,9 +100,9 @@ void tsc_grid::populate_delta_grid() {
         real_grid(il, jl, kl) += lx * ly * lz;
     }
 
-    for (int i = 0; i < nx; ++i) {
-        for (int j = 0; j < ny; ++j) {
-            for (int k = 0; k < nz; ++k) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            for (int k = 0; k < n; ++k) {
                 real_grid(i, j, k) = real_grid(i, j, k) / avg_particle_density - 1;
             }
         }

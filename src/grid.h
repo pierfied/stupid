@@ -14,9 +14,7 @@
 
 class grid {
 public:
-    const int nx;
-    const int ny;
-    const int nz;
+    const int n;
 
     particle_list *plist;
 
@@ -30,22 +28,22 @@ public:
     fftw_plan forward_plan;
     fftw_plan backward_plan;
 
-    grid(int nx, int ny, int nz, particle_list &plist, cosmology cosmo) : nx(nx), ny(ny), nz(nz), real_grid(nx, ny, nz),
-                                                                          fourier_grid(nx, ny, (nz / 2 + 1)),
-                                                                          plist(&plist),
-                                                                          forward_plan(fftw_plan_dft_r2c_3d(nx, ny, nz,
-                                                                                                            real_grid.data,
-                                                                                                            fourier_grid.data,
-                                                                                                            FFTW_MEASURE)),
-                                                                          backward_plan(
-                                                                                  fftw_plan_dft_c2r_3d(nx, ny, nz,
-                                                                                                       fourier_grid.data,
-                                                                                                       real_grid.data,
-                                                                                                       FFTW_MEASURE)),
-                                                                          cosmo(cosmo),
-                                                                          avg_particle_density(
-                                                                                  (double) plist.num_particles /
-                                                                                  (nx * ny * nz)) {}
+    grid(int n, particle_list &plist, cosmology cosmo) : n(n), real_grid(n, n, n),
+                                                         fourier_grid(n, n, (n / 2 + 1)),
+                                                         plist(&plist),
+                                                         forward_plan(fftw_plan_dft_r2c_3d(n, n, n,
+                                                                                           real_grid.data,
+                                                                                           fourier_grid.data,
+                                                                                           FFTW_MEASURE)),
+                                                         backward_plan(
+                                                                 fftw_plan_dft_c2r_3d(n, n, n,
+                                                                                      fourier_grid.data,
+                                                                                      real_grid.data,
+                                                                                      FFTW_MEASURE)),
+                                                         cosmo(cosmo),
+                                                         avg_particle_density(
+                                                                 (double) plist.num_particles /
+                                                                 (n * n * n)) {}
 
     ~grid() {
         fftw_destroy_plan(forward_plan);
@@ -68,18 +66,18 @@ public:
 
         switch (dim) {
             case 0:
-                plus_neighbor = (i + 1) % nx;
-                minus_neighbor = (nx + (i - 1) % nx) % nx;
+                plus_neighbor = (i + 1) % n;
+                minus_neighbor = (n + (i - 1) % n) % n;
 
                 return -(real_grid(plus_neighbor, j, k) - real_grid(minus_neighbor, j, k)) / 2;
             case 1:
-                plus_neighbor = (j + 1) % ny;
-                minus_neighbor = (ny + (j - 1) % ny) % ny;
+                plus_neighbor = (j + 1) % n;
+                minus_neighbor = (n + (j - 1) % n) % n;
 
                 return -(real_grid(i, plus_neighbor, k) - real_grid(i, minus_neighbor, k)) / 2;
             default:
-                plus_neighbor = (k + 1) % nz;
-                minus_neighbor = (nz + (k - 1) % nz) % nz;
+                plus_neighbor = (k + 1) % n;
+                minus_neighbor = (n + (k - 1) % n) % n;
 
                 return -(real_grid(i, j, plus_neighbor) - real_grid(i, j, minus_neighbor)) / 2;
         }
