@@ -15,13 +15,17 @@ class leapfrog_integrator : public integrator {
     const double a0;
 
 public:
-    leapfrog_integrator(double a0, int num_steps, double delta_a, grid &g) : integrator(g), num_steps(num_steps),
-                                                                             delta_a(delta_a), a0(a0) {}
+    leapfrog_integrator(double a0, int num_steps, double delta_a, grid &g) :
+            integrator(g, std::string()), num_steps(num_steps), delta_a(delta_a), a0(a0) {}
 
-    leapfrog_integrator(double a0, double a_final, double delta_a, grid &g) : integrator(g), delta_a(delta_a), a0(a0),
-                                                                              num_steps(
-                                                                                      (int) ceil((a_final - a0) /
-                                                                                                 delta_a)) {}
+    leapfrog_integrator(double a0, int num_steps, double delta_a, grid &g, std::string file_prefix) :
+            integrator(g, file_prefix), num_steps(num_steps), delta_a(delta_a), a0(a0) {}
+
+    leapfrog_integrator(double a0, double a_final, double delta_a, grid &g) :
+            integrator(g, std::string()), delta_a(delta_a), a0(a0), num_steps((int) ceil((a_final - a0) / delta_a)) {}
+
+    leapfrog_integrator(double a0, double a_final, double delta_a, grid &g, std::string file_prefix) :
+            integrator(g, file_prefix), delta_a(delta_a), a0(a0), num_steps((int) ceil((a_final - a0) / delta_a)) {}
 
 private:
     void forward_half_step_p(double a);
