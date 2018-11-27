@@ -41,6 +41,7 @@ public:
     ~grid() {
         fftw_destroy_plan(forward_plan);
         fftw_destroy_plan(backward_plan);
+        fftw_cleanup_threads();
     }
 
     virtual void populate_delta_grid() = 0;
