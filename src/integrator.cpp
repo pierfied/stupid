@@ -20,7 +20,7 @@ void integrator::write_momentum(double a) {
     std::ofstream file(fname, std::ios::out | std::ios::binary);
 
     file.write((char *) &a, sizeof(double));
-    file.write((char *) g->plist->x->data, sizeof(double) * g->plist->num_particles * g->plist->num_dims);
+    file.write((char *) g->plist->p->data, sizeof(double) * g->plist->num_particles * g->plist->num_dims);
 
     file.close();
 }

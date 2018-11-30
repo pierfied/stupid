@@ -287,7 +287,7 @@ TEST(leapfrog_integrator, pos_write) {
 
     std::filesystem::create_directory("test_output");
 
-    std::string fprefix = "test_output/test_x";
+    std::string fprefix = "test_output/test";
 
     leapfrog_integrator li(a0, af, delta_a, grid, fprefix, num_steps);
 
