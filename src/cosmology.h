@@ -14,9 +14,8 @@ public:
     const double Omega_l0;
     const double H_0;
 
-    cosmology(double Omega_m0, double Omega_k0, double Omega_l0, double H_0) : Omega_m0(Omega_m0), Omega_k0(Omega_k0),
-                                                                               Omega_l0(Omega_l0), H_0(H_0),
-                                                                               Omega_0(Omega_m0 + Omega_l0) {}
+    cosmology(double Omega_m0, double Omega_k0, double Omega_l0, double H_0) :
+            Omega_m0(Omega_m0), Omega_k0(Omega_k0), Omega_l0(Omega_l0), H_0(H_0), Omega_0(Omega_m0 + Omega_l0) {}
 
     double f(double a);
 
