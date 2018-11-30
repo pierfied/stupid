@@ -45,7 +45,7 @@ void leapfrog_integrator::run_sim() {
     double a = a0;
 
     if (write_pos) {
-        write_positions(a);
+        write_pos_and_mom(a);
     }
 
     backward_half_step_p(a);
@@ -56,13 +56,13 @@ void leapfrog_integrator::run_sim() {
         a += delta_a;
 
         if (write_pos && (i + 1) % write_nth_step == 0) {
-            write_positions(a);
+            write_pos_and_mom(a);
         }
     }
 
     forward_half_step_p(a);
 
     if (write_pos && num_steps % write_nth_step != 0) {
-        write_positions(a);
+        write_pos_and_mom(a);
     }
 }

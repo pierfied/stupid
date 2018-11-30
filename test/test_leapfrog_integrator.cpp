@@ -19,7 +19,7 @@ TEST(leapfrog_integrator, motion_2body_x) {
 
     x(1, 0) = 1;
 
-    cosmology cosmo(1, 0, 0, 0);
+    cosmology cosmo(1, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -52,7 +52,7 @@ TEST(leapfrog_integrator, motion_2body_y) {
 
     x(1, 1) = 1;
 
-    cosmology cosmo(1, 0, 0, 0);
+    cosmology cosmo(1, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -85,7 +85,7 @@ TEST(leapfrog_integrator, motion_2body_z) {
 
     x(1, 2) = 1;
 
-    cosmology cosmo(1, 0, 0, 0);
+    cosmology cosmo(1, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -130,7 +130,7 @@ TEST(leapfrog_integrator, flat_density) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, plist, cosmology(1, 0, 0, 0));
+    cic_grid grid(n, plist, cosmology(1, 0, 0));
 
     double a0 = 0.5;
     double af = 1;
@@ -178,7 +178,7 @@ TEST(leapfrog_integrator, alternating_density) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, plist, cosmology(1, 0, 0, 0));
+    cic_grid grid(n, plist, cosmology(1, 0, 0));
 
     double a0 = 0.5;
     double af = 1;
@@ -225,7 +225,7 @@ TEST(leapfrog_integrator, particle_cube) {
         }
     }
 
-    cosmology cosmo(1, 0, 0, 0);
+    cosmology cosmo(1, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -275,7 +275,7 @@ TEST(leapfrog_integrator, pos_write) {
         }
     }
 
-    cosmology cosmo(1, 0, 0, 0);
+    cosmology cosmo(1, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -287,7 +287,7 @@ TEST(leapfrog_integrator, pos_write) {
 
     std::filesystem::create_directory("test_output");
 
-    std::string fprefix = "test_output/test_x";
+    std::string fprefix = "test_output/test";
 
     leapfrog_integrator li(a0, af, delta_a, grid, fprefix, num_steps);
 

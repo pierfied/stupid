@@ -12,7 +12,7 @@
 
 
 TEST(leapfrog_integrator, one_dimensional_plane_wave) {
-    cosmology cosmo(1, 0, 0, 0);
+    cosmology cosmo(1, 0, 0);
 
     int n = 32;
 
