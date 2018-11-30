@@ -21,6 +21,10 @@ public:
 
     void write_positions(double a);
 
+    void write_momentum(double a);
+
+    void write_pos_and_mom(double a);
+
     virtual void run_sim() = 0;
 };
 
