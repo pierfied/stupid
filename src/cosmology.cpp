@@ -11,5 +11,6 @@ double cosmology::f(double a) {
 }
 
 double cosmology::lgf(double a) {
-    return 0;
+    // From Carroll 1992 eq 29
+    return 0.5*5*a*Omega_m0/(pow(Omega_m0, 4./7.) - Omega_l0 + (1+0.5*Omega_m0)*(1+Omega_l0/70));
 }
