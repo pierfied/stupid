@@ -19,6 +19,8 @@ public:
                                                                                Omega_0(Omega_m0 + Omega_l0) {}
 
     double f(double a);
+
+    double lgf(double a);
 };
 
 
