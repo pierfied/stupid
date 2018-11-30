@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 file(GLOB source src/*.cpp src/*.h)
 
-add_library(stupid ${source})
+add_library(stupid SHARED ${source})
 
 target_link_libraries(stupid m fftw3)
 
