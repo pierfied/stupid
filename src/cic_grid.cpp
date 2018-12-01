@@ -8,9 +8,9 @@ void cic_grid::populate_delta_grid() {
     real_grid.reset_zero();
 
     for (int p = 0; p < plist->num_particles; ++p) {
-        int i = int(plist->x->index(p, 0)) % n;
-        int j = int(plist->x->index(p, 1)) % n;
-        int k = int(plist->x->index(p, 2)) % n;
+        int i = modulo(plist->x->index(p, 0), n);
+        int j = modulo(plist->x->index(p, 1), n);
+        int k = modulo(plist->x->index(p, 2), n);
 
         int i_neighbor = (i + 1) % n;
         int j_neighbor = (j + 1) % n;

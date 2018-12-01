@@ -15,13 +15,13 @@ public:
     void populate_delta_grid() override;
 
     inline double particle_accel(int particle_ind, int dim) override {
-        int i = int(plist->x->index(particle_ind, 0)) % n;
-        int j = int(plist->x->index(particle_ind, 1)) % n;
-        int k = int(plist->x->index(particle_ind, 2)) % n;
+        int i = modulo(plist->x->index(particle_ind, 0), n);
+        int j = modulo(plist->x->index(particle_ind, 1), n);
+        int k = modulo(plist->x->index(particle_ind, 2), n);
 
-        int i_neighbor = (i + 1) % n;
-        int j_neighbor = (j + 1) % n;
-        int k_neighbor = (k + 1) % n;
+        int i_neighbor = modulo(i + 1, n);
+        int j_neighbor = modulo(j + 1, n);
+        int k_neighbor = modulo(k + 1, n);
 
         double dx = plist->x->index(particle_ind, 0) - i;
         double dy = plist->x->index(particle_ind, 1) - j;

@@ -56,3 +56,11 @@ void grid::compute_potential(double a) {
 
     ifft();
 }
+
+void grid::rebound_positions() {
+    for (int i = 0; i < plist->num_particles; ++i) {
+        plist->x->index(i,0) = modulo(plist->x->index(i,0), n);
+        plist->x->index(i,1) = modulo(plist->x->index(i,1), n);
+        plist->x->index(i,2) = modulo(plist->x->index(i,2), n);
+    }
+}

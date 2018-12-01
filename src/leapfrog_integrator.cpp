@@ -39,6 +39,8 @@ void leapfrog_integrator::full_step(double a) {
         g->plist->x->index(i, 1) += g->cosmo.f(a) * g->plist->p->index(i, 1) * delta_a / (a * a);
         g->plist->x->index(i, 2) += g->cosmo.f(a) * g->plist->p->index(i, 2) * delta_a / (a * a);
     }
+
+    g->rebound_positions();
 }
 
 void leapfrog_integrator::run_sim() {

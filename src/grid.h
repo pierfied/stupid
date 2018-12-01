@@ -11,6 +11,7 @@
 #include "multidim_array.h"
 #include "particle_list.h"
 #include "cosmology.h"
+#include <math.h>
 
 class grid {
 public:
@@ -39,6 +40,14 @@ public:
         fftw_destroy_plan(backward_plan);
     }
 
+    inline int modulo(int a, int b) {
+        return (a % b + b) % b;
+    }
+
+    inline double modulo(double a, int b) {
+        return fmod(fmod(a, b) + b, b);
+    }
+
     virtual void populate_delta_grid() = 0;
 
     void fft();
@@ -56,23 +65,25 @@ public:
         switch (dim) {
             case 0:
                 plus_neighbor = (i + 1) % n;
-                minus_neighbor = (n + (i - 1) % n) % n;
+                minus_neighbor = modulo(i - 1, n);
 
                 return -(real_grid(plus_neighbor, j, k) - real_grid(minus_neighbor, j, k)) / 2;
             case 1:
                 plus_neighbor = (j + 1) % n;
-                minus_neighbor = (n + (j - 1) % n) % n;
+                minus_neighbor = modulo(j - 1, n);;
 
                 return -(real_grid(i, plus_neighbor, k) - real_grid(i, minus_neighbor, k)) / 2;
             default:
                 plus_neighbor = (k + 1) % n;
-                minus_neighbor = (n + (k - 1) % n) % n;
+                minus_neighbor = modulo(k - 1, n);;
 
                 return -(real_grid(i, j, plus_neighbor) - real_grid(i, j, minus_neighbor)) / 2;
         }
     }
 
     virtual double particle_accel(int particle_ind, int dim) = 0;
+
+    void rebound_positions();
 };
 
 
