@@ -1,5 +1,7 @@
 import numpy as np
 import yt
+from matplotlib.animation import FuncAnimation
+from matplotlib import rc_context
 
 
 class DataVisualizer:
@@ -35,3 +37,23 @@ class DataVisualizer:
         ds.current_time = a
 
         return ds
+
+    def projection_plot(self, n, axis):
+        self.ds = self.load_snapshot(n)
+
+        p = yt.ProjectionPlot(self.ds, axis, ('deposit', 'all_count'))
+
+        return p
+
+    def animated_projection_plot(self, fname, snapshot_range, axis):
+        p = self.projection_plot(snapshot_range[0], axis)
+        fig = p[('deposit', 'all_count')].figure
+
+        def animate(n):
+            self.ds = self.load_snapshot(n)
+            p._switch_ds(self.ds)
+
+        animation = FuncAnimation(fig, animate, frames=snapshot_range)
+
+        with rc_context({'mathtext.fontset': 'stix'}):
+            animation.save(fname)
