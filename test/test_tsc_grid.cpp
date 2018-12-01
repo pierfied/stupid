@@ -81,7 +81,7 @@ TEST(tsc_grid, flat_density_half_offset) {
 TEST(tsc_grid, alternating_density) {
     int n = 10;
 
-    int num_particles = n * n * n;
+    int num_particles = n * n;
     int num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
@@ -90,13 +90,10 @@ TEST(tsc_grid, alternating_density) {
     int cur_particle = 0;
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
-                x(cur_particle, 0) = i - i % 2;
-                x(cur_particle, 1) = j - j % 2;
-                x(cur_particle, 2) = k - k % 2;
+            x(cur_particle, 0) = i - i % 2;
+            x(cur_particle, 1) = j - j % 2;
 
-                cur_particle++;
-            }
+            cur_particle++;
         }
     }
 
@@ -107,12 +104,14 @@ TEST(tsc_grid, alternating_density) {
 
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
-                if (i % 2 == 0 && j % 2 == 0 && k % 2 == 0) {
-                    EXPECT_DOUBLE_EQ(7, grid.real_grid(i, j, k));
-                } else {
-                    EXPECT_DOUBLE_EQ(-1, grid.real_grid(i, j, k));
-                }
+            if (i % 2 == 0 && j % 2 == 0) {
+                EXPECT_DOUBLE_EQ(15.875, grid.real_grid(i, j, 0));
+            } else if (i % 2 == 0 && j % 2 == 1) {
+                EXPECT_DOUBLE_EQ(4.625, grid.real_grid(i, j, 0));
+            } else if (i % 2 == 1 && j % 2 == 0) {
+                EXPECT_DOUBLE_EQ(4.625, grid.real_grid(i, j, 0));
+            } else {
+                EXPECT_DOUBLE_EQ(0.875, grid.real_grid(i, j, 0));
             }
         }
     }
