@@ -8,16 +8,16 @@ void tsc_grid::populate_delta_grid() {
     real_grid.reset_zero();
 
     for (int p = 0; p < plist->num_particles; ++p) {
-        int i = int(plist->x->index(p, 0)) % n;
-        int j = int(plist->x->index(p, 1)) % n;
-        int k = int(plist->x->index(p, 2)) % n;
+        int i = modulo(plist->x->index(p, 0), n);
+        int j = modulo(plist->x->index(p, 1), n);
+        int k = modulo(plist->x->index(p, 2), n);
 
-        int iu = (i + 1) % n;
-        int ju = (j + 1) % n;
-        int ku = (k + 1) % n;
-        int il = ((i - 1) % n + n) % n;
-        int jl = ((j - 1) % n + n) % n;
-        int kl = ((k - 1) % n + n) % n;
+        int iu = modulo((i + 1), n);
+        int ju = modulo((j + 1), n);
+        int ku = modulo((k + 1), n);
+        int il = modulo((i - 1), n);
+        int jl = modulo((j - 1), n);
+        int kl = modulo((k - 1), n);
 
         double dx = plist->x->index(p, 0) - i;
         double dy = plist->x->index(p, 1) - j;
