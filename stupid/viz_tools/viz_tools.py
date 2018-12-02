@@ -2,6 +2,11 @@ import numpy as np
 import yt
 from matplotlib.animation import FuncAnimation
 from matplotlib import rc_context
+import os
+import shutil
+from multiprocessing import Pool
+from functools import partial
+import tqdm
 
 
 class DataVisualizer:
@@ -60,3 +65,49 @@ class DataVisualizer:
 
         with rc_context({'mathtext.fontset': 'stix'}):
             animation.save(fname)
+
+    def volume_plot(self, n, resolution=None):
+        ds = self.load_snapshot(n)
+        region = ds.r[::self.num_cells * 1j, ::self.num_cells * 1j, ::self.num_cells * 1j]
+
+        density = region[('deposit', 'all_density')]
+        data = {'density': density}
+
+        bbox = np.array([[0, self.num_cells], [0, self.num_cells], [0, self.num_cells]])
+
+        ds = yt.load_uniform_grid(data, density.shape, bbox=bbox)
+
+        sc = yt.create_scene(ds, ('stream', 'density'))
+
+        if resolution is not None:
+            sc.camera.resolution = (resolution, resolution)
+
+        return sc
+
+    def _animated_volume_plot_worker(self, n, sigma_clip, resolution):
+        sc = self.volume_plot(n, resolution)
+
+        sc.save('tmp_renders/frame_{0}.png'.format(n), sigma_clip)
+
+    def animated_volume_plot(self, fname, snapshot_range, sigma_clip=None, resolution=None, tqdm_notebook=False, parallel=False):
+        os.makedirs('tmp_renders', exist_ok=True)
+
+        if parallel:
+            if tqdm_notebook:
+                tqdm_type = tqdm.tqdm_notebook
+            else:
+                tqdm_type = tqdm.tqdm
+
+            with Pool() as pool:
+                list(tqdm_type(pool.imap(
+                    partial(self._animated_volume_plot_worker, sigma_clip=sigma_clip, resolution=resolution),
+                    snapshot_range), total=len(snapshot_range)))
+        else:
+            for n in snapshot_range:
+                sc = self.volume_plot(n, resolution)
+
+            sc.save('tmp_renders/frame_{0}.png'.format(n), sigma_clip)
+
+        os.system('ffmpeg -f image2 -r 15 -i tmp_renders/frame_%d.png -vcodec h264 -y {0}'.format(fname))
+
+        shutil.rmtree('tmp_renders')
