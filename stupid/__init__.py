@@ -1,1 +1,1 @@
-from stupid import *
+from .stupid_wrapper import *
