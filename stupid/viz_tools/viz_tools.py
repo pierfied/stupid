@@ -22,13 +22,16 @@ class DataVisualizer:
         a, x = self.load_binary_file(self.file_prefix + '_x_{0}.bin'.format(n))
         _, p = self.load_binary_file(self.file_prefix + '_p_{0}.bin'.format(n))
 
+        m = np.ones(x.shape[0])
+
         data = {
             'particle_position_x': x[:, 0],
             'particle_position_y': x[:, 1],
             'particle_position_z': x[:, 2],
             'particle_velocity_x': p[:, 0],
             'particle_velocity_y': p[:, 1],
-            'particle_velocity_z': p[:, 2]
+            'particle_velocity_z': p[:, 2],
+            'particle_mass': m
         }
 
         bbox = np.array([[0, self.num_cells], [0, self.num_cells], [0, self.num_cells]])
@@ -41,13 +44,13 @@ class DataVisualizer:
     def projection_plot(self, n, axis):
         self.ds = self.load_snapshot(n)
 
-        p = yt.ProjectionPlot(self.ds, axis, ('deposit', 'all_count'))
+        p = yt.ProjectionPlot(self.ds, axis, ('deposit', 'all_density'))
 
         return p
 
     def animated_projection_plot(self, fname, snapshot_range, axis):
         p = self.projection_plot(snapshot_range[0], axis)
-        fig = p[('deposit', 'all_count')].figure
+        fig = p[('deposit', 'all_density')].figure
 
         def animate(n):
             self.ds = self.load_snapshot(n)
