@@ -54,7 +54,7 @@ class build_ext(build_ext_orig):
 setup(
     name='stupid',
     version='0.1',
-    packages=['stupid'],
+    packages=['stupid', 'stupid/viz_tools'],
     ext_modules=[CMakeExtension('stupid/stupid')],
     cmdclass={
         'build_ext': build_ext,
