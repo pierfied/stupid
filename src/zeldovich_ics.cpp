@@ -24,7 +24,6 @@ void zeldovich_ics::fourier_displacement_vec() {
     double ak;
     double bk;
     double k2;
-    double sigma8 = 0.835;
 
     std::random_device rd{};
     std::mt19937 gen{rd()};
@@ -45,8 +44,8 @@ void zeldovich_ics::fourier_displacement_vec() {
                     k2 = kx*kx + ky*ky + kz*kz;
                     std::normal_distribution<> d{0, sqrt(cosmo.P_at_k(sqrt(k2)) / k2)};
 
-                    ak = sigma8*d(gen)/2;
-                    bk = sigma8*d(gen)/2;
+                    ak = cosmo.sigma8*d(gen)/2;
+                    bk = cosmo.sigma8*d(gen)/2;
                 }
 
                 fourier_Sx(i, j, k)[0] = kx*ak;

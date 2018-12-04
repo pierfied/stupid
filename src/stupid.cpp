@@ -24,7 +24,7 @@ void run_sim(stupid_args args) {
 
     particle_list plist(x, p);
 
-    cosmology cosmo(args.Omega_m0, args.Omega_k0, args.Omega_l0);
+    cosmology cosmo(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.sigma8);
 
     grid *g;
 

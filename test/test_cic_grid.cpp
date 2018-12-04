@@ -29,7 +29,7 @@ TEST(cic_grid, flat_density) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, plist, cosmology(0, 0, 0));
+    cic_grid grid(n, plist, cosmology(0, 0, 0, 0));
 
     grid.populate_delta_grid();
 
@@ -65,7 +65,7 @@ TEST(cic_grid, flat_density_half_offset) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, plist, cosmology(0, 0, 0));
+    cic_grid grid(n, plist, cosmology(0, 0, 0, 0));
 
     grid.populate_delta_grid();
 
@@ -101,7 +101,7 @@ TEST(cic_grid, alternating_density) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, plist, cosmology(0, 0, 0));
+    cic_grid grid(n, plist, cosmology(0, 0, 0, 0));
 
     grid.populate_delta_grid();
 
@@ -141,7 +141,7 @@ TEST(cic_grid, fft_recover) {
     }
 
     particle_list plist(x, p);
-    cic_grid grid(n, plist, cosmology(0, 0, 0));
+    cic_grid grid(n, plist, cosmology(0, 0, 0, 0));
 
     grid.populate_delta_grid();
 
@@ -184,7 +184,7 @@ TEST(cic_grid, flat_potential) {
         }
     }
 
-    cosmology cosmo(1, 0, 0);
+    cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -223,7 +223,7 @@ TEST(cic_grid, alternating_potential) {
         }
     }
 
-    cosmology cosmo(1, 0, 0);
+    cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -275,7 +275,7 @@ TEST(cic_grid, accel_2body_x) {
 
     x(1, 0) = 1;
 
-    cosmology cosmo(1, 0, 0);
+    cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -310,7 +310,7 @@ TEST(cic_grid, accel_2body_y) {
 
     x(1, 1) = 1;
 
-    cosmology cosmo(1, 0, 0);
+    cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);
@@ -345,7 +345,7 @@ TEST(cic_grid, accel_2body_z) {
 
     x(1, 2) = 1;
 
-    cosmology cosmo(1, 0, 0);
+    cosmology cosmo(1, 0, 0, 0);
 
     particle_list plist(x, p);
     cic_grid grid(n, plist, cosmo);

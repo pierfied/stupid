@@ -15,13 +15,15 @@ public:
     const double Omega_m0;
     const double Omega_k0;
     const double Omega_l0;
+    const double sigma8;
 
     gsl_interp_accel *acc;
     gsl_spline *spline;
 
 
-    cosmology(double Omega_m0, double Omega_k0, double Omega_l0) :
-            Omega_m0(Omega_m0), Omega_k0(Omega_k0), Omega_l0(Omega_l0), Omega_0(Omega_m0 + Omega_l0) {}
+    cosmology(double Omega_m0, double Omega_k0, double Omega_l0, double sigma8) :
+            Omega_m0(Omega_m0), Omega_k0(Omega_k0), Omega_l0(Omega_l0), Omega_0(Omega_m0 + Omega_l0),
+            sigma8(sigma8) {}
 
     double f(double a);
 
