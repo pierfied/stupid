@@ -8,7 +8,7 @@ file(GLOB source src/*.cpp src/*.h)
 
 add_library(stupid SHARED ${source})
 
-target_link_libraries(stupid m fftw3)
+target_link_libraries(stupid m fftw3 gsl gslcblas)
 
 target_include_directories(stupid PUBLIC include)
 
