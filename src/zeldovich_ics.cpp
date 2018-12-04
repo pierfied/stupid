@@ -73,7 +73,10 @@ void zeldovich_ics::apply_ZA() {
                 plist->x->index(cur_particle, 0) -= cosmo.lgf(a0)*real_Sx(i, j, k)/pow(Np1, 1.5);
                 plist->x->index(cur_particle, 1) -= cosmo.lgf(a0)*real_Sy(i, j, k)/pow(Np1, 1.5);
                 plist->x->index(cur_particle, 2) -= cosmo.lgf(a0)*real_Sz(i, j, k)/pow(Np1, 1.5);
-                printf("%lf\n", cosmo.lgf(a0)*real_Sx(i, j, k)/pow(Np1, 1.5));
+
+                plist->p->index(cur_particle, 0) -= (a0-0.5*delta_a)*cosmo.lgf(a0-0.5*delta_a)*real_Sx(i, j, k)/pow(Np1, 1.5);
+                plist->p->index(cur_particle, 1) -= (a0-0.5*delta_a)*cosmo.lgf(a0-0.5*delta_a)*real_Sy(i, j, k)/pow(Np1, 1.5);
+                plist->p->index(cur_particle, 2) -= (a0-0.5*delta_a)*cosmo.lgf(a0-0.5*delta_a)*real_Sz(i, j, k)/pow(Np1, 1.5);
 
                 cur_particle++;
             }
