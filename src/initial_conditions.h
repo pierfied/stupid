@@ -7,14 +7,15 @@
 
 #include "cosmology.h"
 #include "particle_list.h"
+#include "grid.h"
 
 class initial_conditions {
-
 public:
-    cosmology *cosmo;
     particle_list *plist;
 
-    initial_conditions(cosmology &cosmo, particle_list &plist) : cosmo(&cosmo), plist(&plist){}
+    grid *g;
+
+    initial_conditions(particle_list &plist, grid &g) : plist(&plist), g(&g){}
 
     virtual void setup_ics() = 0;
 
