@@ -10,6 +10,7 @@ void integrator::write_positions(double a) {
     std::ofstream file(fname, std::ios::out | std::ios::binary);
 
     if (g->cosmo.use_real_units) {
+#pragma omp parallel for
         for (int i = 0; i < g->plist->num_particles; ++i) {
             g->plist->x->index(i,0) *= a * g->cosmo.u.r0;
             g->plist->x->index(i,1) *= a * g->cosmo.u.r0;
@@ -21,6 +22,7 @@ void integrator::write_positions(double a) {
     file.write((char *) g->plist->x->data, sizeof(double) * g->plist->num_particles * g->plist->num_dims);
 
     if (g->cosmo.use_real_units) {
+#pragma omp parallel for
         for (int i = 0; i < g->plist->num_particles; ++i) {
             g->plist->x->index(i,0) /= a * g->cosmo.u.r0;
             g->plist->x->index(i,1) /= a * g->cosmo.u.r0;
@@ -38,6 +40,7 @@ void integrator::write_momentum(double a) {
     double v0 = g->cosmo.u.r0 / g->cosmo.u.t0;
 
     if (g->cosmo.use_real_units) {
+#pragma omp parallel for
         for (int i = 0; i < g->plist->num_particles; ++i) {
             g->plist->p->index(i,0) *= v0 / a;
             g->plist->p->index(i,1) *= v0 / a;
@@ -49,6 +52,7 @@ void integrator::write_momentum(double a) {
     file.write((char *) g->plist->p->data, sizeof(double) * g->plist->num_particles * g->plist->num_dims);
 
     if (g->cosmo.use_real_units) {
+#pragma omp parallel for
         for (int i = 0; i < g->plist->num_particles; ++i) {
             g->plist->p->index(i,0) /= v0 / a;
             g->plist->p->index(i,1) /= v0 / a;

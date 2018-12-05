@@ -37,6 +37,7 @@ void cic_grid::populate_delta_grid() {
         real_grid(i_neighbor, j_neighbor, k_neighbor) += dx * dy * dz;
     }
 
+#pragma omp parallel for
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             for (int k = 0; k < n; ++k) {

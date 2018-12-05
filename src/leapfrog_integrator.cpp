@@ -7,6 +7,7 @@
 void leapfrog_integrator::forward_half_step_p(double a) {
     g->compute_potential(a);
 
+#pragma omp parallel for
     for (int i = 0; i < g->plist->num_particles; ++i) {
         g->plist->p->index(i, 0) += g->cosmo.f(a) * g->particle_accel(i, 0) * delta_a / 2;
         g->plist->p->index(i, 1) += g->cosmo.f(a) * g->particle_accel(i, 1) * delta_a / 2;
@@ -17,6 +18,7 @@ void leapfrog_integrator::forward_half_step_p(double a) {
 void leapfrog_integrator::backward_half_step_p(double a) {
     g->compute_potential(a);
 
+#pragma omp parallel for
     for (int i = 0; i < g->plist->num_particles; ++i) {
         g->plist->p->index(i, 0) -= g->cosmo.f(a) * g->particle_accel(i, 0) * delta_a / 2;
         g->plist->p->index(i, 1) -= g->cosmo.f(a) * g->particle_accel(i, 1) * delta_a / 2;
@@ -27,6 +29,7 @@ void leapfrog_integrator::backward_half_step_p(double a) {
 void leapfrog_integrator::full_step(double a) {
     g->compute_potential(a);
 
+#pragma omp parallel for
     for (int i = 0; i < g->plist->num_particles; ++i) {
         g->plist->p->index(i, 0) += g->cosmo.f(a) * g->particle_accel(i, 0) * delta_a;
         g->plist->p->index(i, 1) += g->cosmo.f(a) * g->particle_accel(i, 1) * delta_a;
@@ -34,6 +37,7 @@ void leapfrog_integrator::full_step(double a) {
     }
 
     a += 0.5 * delta_a;
+#pragma omp parallel for
     for (int i = 0; i < g->plist->num_particles; ++i) {
         g->plist->x->index(i, 0) += g->cosmo.f(a) * g->plist->p->index(i, 0) * delta_a / (a * a);
         g->plist->x->index(i, 1) += g->cosmo.f(a) * g->plist->p->index(i, 1) * delta_a / (a * a);
