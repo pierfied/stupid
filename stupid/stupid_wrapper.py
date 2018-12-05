@@ -51,6 +51,8 @@ class STUPID:
 
             x = r
             p = v
+            self.r0 = 0
+            self.t0 = 0
 
         lib_path = os.path.join(os.path.dirname(__file__), 'libstupid.so')
         self.stupid_lib = cdll.LoadLibrary(lib_path)

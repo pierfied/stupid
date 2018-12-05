@@ -26,7 +26,24 @@ typedef struct {
     double t0;
 } stupid_args;
 
+typedef struct {
+    double *x;
+    double *p;
+    int num_particles;
+    int num_cells;
+    int sizeofk;
+    double *k;
+    double *P;
+    double a0;
+    double Omega_m0;
+    double Omega_k0;
+    double Omega_l0;
+    double sigma8;
+} stupid_ics_args;
+
 void run_sim(stupid_args args);
+
+void setup_ics(stupid_ics_args args);
 
 void hello();
 
