@@ -58,7 +58,11 @@ void leapfrog_integrator::run_sim() {
         a += delta_a;
 
         if (write_pos && (i + 1) % write_nth_step == 0) {
+            forward_half_step_p(a);
+
             write_pos_and_mom(a);
+
+            backward_half_step_p(a);
         }
     }
 
