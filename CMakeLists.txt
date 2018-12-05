@@ -13,8 +13,8 @@ target_link_libraries(stupid m fftw3 gsl gslcblas)
 target_include_directories(stupid PUBLIC include)
 
 
-add_executable(test test/test.cpp)
+add_executable(test.exe test/test.cpp)
 
-target_link_libraries(test stupid gtest gtest_main pthread stdc++fs)
+target_link_libraries(test.exe stupid gtest gtest_main pthread stdc++fs)
 
-target_include_directories(test PUBLIC include src)
+target_include_directories(test.exe PUBLIC include src)
