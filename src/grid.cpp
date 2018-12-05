@@ -16,6 +16,7 @@ void grid::ifft() {
 
     double norm = n * n * n;
 
+#pragma omp parallel for
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             for (int k = 0; k < n; ++k) {
@@ -28,6 +29,7 @@ void grid::ifft() {
 void grid::apply_greens_func(double a) {
     double factor = -3 * cosmo.Omega_0 / (8 * a);
 
+#pragma omp parallel for
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             for (int k = 0; k < (n / 2 + 1); ++k) {
@@ -58,6 +60,7 @@ void grid::compute_potential(double a) {
 }
 
 void grid::rebound_positions() {
+#pragma omp parallel for
     for (int i = 0; i < plist->num_particles; ++i) {
         plist->x->index(i,0) = modulo(plist->x->index(i,0), n);
         plist->x->index(i,1) = modulo(plist->x->index(i,1), n);

@@ -12,6 +12,7 @@
 #include "particle_list.h"
 #include "cosmology.h"
 #include <math.h>
+#include <omp.h>
 
 class grid {
 public:
@@ -31,13 +32,17 @@ public:
 
     grid(int n, particle_list &plist, cosmology cosmo) :
             n(n), real_grid(n, n, n), fourier_grid(n, n, (n / 2 + 1)), plist(&plist),
-            forward_plan(fftw_plan_dft_r2c_3d(n, n, n, real_grid.data, fourier_grid.data, FFTW_MEASURE)),
-            backward_plan(fftw_plan_dft_c2r_3d(n, n, n, fourier_grid.data, real_grid.data, FFTW_MEASURE)),
-            cosmo(cosmo), avg_particle_density((double) plist.num_particles / (n * n * n)) {}
+            cosmo(cosmo), avg_particle_density((double) plist.num_particles / (n * n * n)) {
+        fftw_init_threads();
+        fftw_plan_with_nthreads(omp_get_max_threads());
+        forward_plan = fftw_plan_dft_r2c_3d(n, n, n, real_grid.data, fourier_grid.data, FFTW_MEASURE);
+        backward_plan = fftw_plan_dft_c2r_3d(n, n, n, fourier_grid.data, real_grid.data, FFTW_MEASURE);
+    }
 
     ~grid() {
         fftw_destroy_plan(forward_plan);
         fftw_destroy_plan(backward_plan);
+        fftw_cleanup_threads();
     }
 
     inline int modulo(int a, int b) {
