@@ -47,9 +47,19 @@ class STUPID:
         self.num_cells = num_cells
         self.cosmo = cosmo
         self.file_prefix = file_prefix
-        self.interp_scheme = interp_scheme
-        self.integrator = integrator
         self.write_nth_step = write_nth_step
+
+        if interp_scheme == 'cic':
+            self.interp_scheme = 1
+        elif interp_scheme == 'tsc':
+            self.interp_scheme = 2
+        else:
+            self.interp_scheme = 0
+
+        if integrator == 'leapfrog':
+            self.integrator = 1
+        else:
+            self.integrator = 0
 
     def run_sim(self):
         args = _Args_Struct()
