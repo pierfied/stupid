@@ -46,6 +46,8 @@ void leapfrog_integrator::full_step(double a) {
 void leapfrog_integrator::run_sim() {
     double a = a0;
 
+    g->rebound_positions();
+
     if (write_pos) {
         write_pos_and_mom(a);
     }
