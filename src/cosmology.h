@@ -35,7 +35,11 @@ public:
 
     double f(double a);
 
-    double lgf(double a);
+    double adot(double a);
+
+    double D(double a);
+
+    double Ddot(double a);
 
     void load_P(double *k, double *P, int size);
 
