@@ -27,7 +27,7 @@ class _Args_Struct(Structure):
 
 
 class Cosmology:
-    def __init__(self, Omega_m0, Omega_k0, Omega_l0, sigma8, H0):
+    def __init__(self, Omega_m0, Omega_k0, Omega_l0, sigma8=0, H0=0):
         self.Omega_m0 = Omega_m0
         self.Omega_k0 = Omega_k0
         self.Omega_l0 = Omega_l0
@@ -36,14 +36,18 @@ class Cosmology:
 
 
 class STUPID:
-    def __init__(self, r, v, a0, af, delta_a, box_len, num_cells, cosmo, file_prefix, interp_scheme, integrator,
-                 write_nth_step, use_real_units=True):
-        self.r0 = box_len / num_cells
-        self.t0 = 1 / cosmo.H0
-        v0 = self.r0 / self.t0
+    def __init__(self, r, v, a0, af, delta_a, num_cells, cosmo, file_prefix, interp_scheme, integrator,
+                 write_nth_step, use_real_units=True, box_len=None):
+        if use_real_units:
+            self.r0 = box_len / num_cells
+            self.t0 = 1 / cosmo.H0
+            v0 = self.r0 / self.t0
 
-        x = r / (self.r0 * a0)
-        p = v * a0 / v0
+            x = r / (self.r0 * a0)
+            p = v * a0 / v0
+        else:
+            x = r
+            p = v
 
         lib_path = os.path.join(os.path.dirname(__file__), 'libstupid.so')
         self.stupid_lib = cdll.LoadLibrary(lib_path)
