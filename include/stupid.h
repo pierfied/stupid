@@ -21,6 +21,9 @@ typedef struct {
     int interp_scheme;
     int integrator;
     int write_nth_step;
+    bool use_real_units;
+    double r0;
+    double t0;
 } stupid_args;
 
 void run_sim(stupid_args args);

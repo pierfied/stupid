@@ -24,15 +24,21 @@ void run_sim(stupid_args args) {
 
     particle_list plist(x, p);
 
-    cosmology cosmo(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.sigma8);
+    cosmology *cosmo;
+
+    if (args.use_real_units) {
+        cosmo = new cosmology(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.sigma8);
+    }else{
+        cosmo = new cosmology(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.sigma8);
+    }
 
     grid *g;
 
     switch (args.interp_scheme) {
         case 1:
-            g = new cic_grid(args.num_cells, plist, cosmo);
+            g = new cic_grid(args.num_cells, plist, *cosmo);
         default:
-            g = new tsc_grid(args.num_cells, plist, cosmo);
+            g = new tsc_grid(args.num_cells, plist, *cosmo);
     }
 
     integrator *i;
@@ -47,4 +53,5 @@ void run_sim(stupid_args args) {
 
     delete g;
     delete i;
+    delete cosmo;
 }
