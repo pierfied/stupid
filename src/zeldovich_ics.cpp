@@ -63,6 +63,18 @@ void zeldovich_ics::real_displacement_vec() {
     fftw_execute(backward_planx);
     fftw_execute(backward_plany);
     fftw_execute(backward_planz);
+
+    double norm = pow(Np1, 1.5);
+
+    for (int i = 0; i < Np1; ++i) {
+        for (int j = 0; j < Np1; ++j) {
+            for (int k = 0; k < Np1; ++k) {
+                real_Sx(i, j, k) /= norm;
+                real_Sy(i, j, k) /= norm;
+                real_Sz(i, j, k) /= norm;
+            }
+        }
+    }
 }
 
 void zeldovich_ics::apply_ZA() {
@@ -70,13 +82,13 @@ void zeldovich_ics::apply_ZA() {
     for (int i = 0; i < Np1; ++i) {
         for (int j = 0; j < Np1; ++j) {
             for (int k = 0; k < Np1; ++k) {
-                plist->x->index(cur_particle, 0) -= cosmo.lgf(a0)*real_Sx(i, j, k)/pow(Np1, 1.5);
-                plist->x->index(cur_particle, 1) -= cosmo.lgf(a0)*real_Sy(i, j, k)/pow(Np1, 1.5);
-                plist->x->index(cur_particle, 2) -= cosmo.lgf(a0)*real_Sz(i, j, k)/pow(Np1, 1.5);
+                plist->x->index(cur_particle, 0) -= cosmo.D(a0)*real_Sx(i, j, k);
+                plist->x->index(cur_particle, 1) -= cosmo.D(a0)*real_Sy(i, j, k);
+                plist->x->index(cur_particle, 2) -= cosmo.D(a0)*real_Sz(i, j, k);
 
-                plist->p->index(cur_particle, 0) -= (a0-0.5*delta_a)*cosmo.lgf(a0-0.5*delta_a)*real_Sx(i, j, k)/pow(Np1, 1.5);
-                plist->p->index(cur_particle, 1) -= (a0-0.5*delta_a)*cosmo.lgf(a0-0.5*delta_a)*real_Sy(i, j, k)/pow(Np1, 1.5);
-                plist->p->index(cur_particle, 2) -= (a0-0.5*delta_a)*cosmo.lgf(a0-0.5*delta_a)*real_Sz(i, j, k)/pow(Np1, 1.5);
+                plist->p->index(cur_particle, 0) = a0 * a0 * cosmo.Ddot(a0) * real_Sx(i, j, k);
+                plist->p->index(cur_particle, 1) = a0 * a0 * cosmo.Ddot(a0) * real_Sy(i, j, k);
+                plist->p->index(cur_particle, 2) = a0 * a0 * cosmo.Ddot(a0) * real_Sz(i, j, k);
 
                 cur_particle++;
             }
