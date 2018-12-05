@@ -13,9 +13,7 @@ class initial_conditions {
 public:
     particle_list *plist;
 
-    grid *g;
-
-    initial_conditions(particle_list &plist, grid &g) : plist(&plist), g(&g){}
+    initial_conditions(particle_list &plist) : plist(&plist) {}
 
     virtual void setup_ics() = 0;
 

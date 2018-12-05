@@ -5,6 +5,13 @@
 #include "zeldovich_ics.h"
 #include <random>
 
+
+void zeldovich_ics::load_P(){
+    acc = gsl_interp_accel_alloc();
+    spline = gsl_spline_alloc(gsl_interp_cspline, sizeofk);
+    gsl_spline_init(spline, k, P, sizeofk);
+}
+
 void zeldovich_ics::generate_uniform_distribution() {
     int cur_particle = 0;
     for (int i = 0; i < Np1; ++i) {
@@ -42,7 +49,7 @@ void zeldovich_ics::fourier_displacement_vec() {
                     bk = 0;
                 } else{
                     k2 = kx*kx + ky*ky + kz*kz;
-                    std::normal_distribution<> d{0, sqrt(cosmo.P_at_k(sqrt(k2)) / k2)};
+                    std::normal_distribution<> d{0, sqrt(P_at_k(sqrt(k2)) / k2)};
 
                     ak = cosmo.sigma8*d(gen)/2;
                     bk = cosmo.sigma8*d(gen)/2;
@@ -97,6 +104,8 @@ void zeldovich_ics::apply_ZA() {
 }
 
 void zeldovich_ics::setup_ics() {
+    load_P();
+
     generate_uniform_distribution();
 
     fourier_displacement_vec();
