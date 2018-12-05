@@ -46,6 +46,9 @@ class STUPID:
             x = r / (self.r0 * a0)
             p = v * a0 / v0
         else:
+            self.r0 = 0
+            self.t0 = 0
+
             x = r
             p = v
 
