@@ -9,7 +9,7 @@ typedef struct {
     int num_particles;
     double *x;
     double *p;
-    double num_cells;
+    int num_cells;
     double a0;
     double af;
     double delta_a;

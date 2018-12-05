@@ -8,7 +8,7 @@ class _Args_Struct(Structure):
         ('num_particles', c_int),
         ('x', POINTER(c_double)),
         ('p', POINTER(c_double)),
-        ('num_cells', c_double),
+        ('num_cells', c_int),
         ('a0', c_double),
         ('af', c_double),
         ('delta_a', c_double),
