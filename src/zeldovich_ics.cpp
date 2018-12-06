@@ -56,11 +56,11 @@ void zeldovich_ics::fourier_displacement_vec() {
                 }
 
                 fourier_Sx(i, j, k)[0] = kx*ak;
-                fourier_Sx(i, j, k)[1] = -kx*bk;
+                fourier_Sx(i, j, k)[1] = kx*bk;
                 fourier_Sy(i, j, k)[0] = ky*ak;
-                fourier_Sy(i, j, k)[1] = -ky*bk;
+                fourier_Sy(i, j, k)[1] = ky*bk;
                 fourier_Sz(i, j, k)[0] = kz*ak;
-                fourier_Sz(i, j, k)[1] = -kz*bk;
+                fourier_Sz(i, j, k)[1] = kz*bk;
             }
         }
     }
@@ -93,9 +93,9 @@ void zeldovich_ics::apply_ZA() {
                 plist->x->index(cur_particle, 1) -= cosmo.D(a0)*real_Sy(i, j, k);
                 plist->x->index(cur_particle, 2) -= cosmo.D(a0)*real_Sz(i, j, k);
 
-                plist->p->index(cur_particle, 0) = a0 * a0 * cosmo.Ddot(a0) * real_Sx(i, j, k);
-                plist->p->index(cur_particle, 1) = a0 * a0 * cosmo.Ddot(a0) * real_Sy(i, j, k);
-                plist->p->index(cur_particle, 2) = a0 * a0 * cosmo.Ddot(a0) * real_Sz(i, j, k);
+                plist->p->index(cur_particle, 0) = -a0 * a0 * cosmo.Ddot(a0) * real_Sx(i, j, k);
+                plist->p->index(cur_particle, 1) = -a0 * a0 * cosmo.Ddot(a0) * real_Sy(i, j, k);
+                plist->p->index(cur_particle, 2) = -a0 * a0 * cosmo.Ddot(a0) * real_Sz(i, j, k);
 
                 cur_particle++;
             }
