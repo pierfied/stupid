@@ -33,8 +33,9 @@ void zeldovich_ics::fourier_displacement_vec() {
     double k2;
 
     std::random_device rd{};
-    unsigned int base_seed = rd();
     std::mt19937 gen(rd());
+
+    double alpha = 1;
 
     for (int i=0; i<Np1; i++) {
         double kx = 2*M_PI*(i-Np1/2+1)/Ng1;
@@ -52,14 +53,8 @@ void zeldovich_ics::fourier_displacement_vec() {
                     k2 = kx*kx + ky*ky + kz*kz;
                     std::normal_distribution<> d{0, sqrt(P_at_k(sqrt(k2))) / k2};
 
-                    float fk2 = float(k2);
-                    unsigned int *fk2p = (unsigned int *)&fk2;
-                    unsigned int k2_seed = base_seed + *fk2p;
-
-                    gen.seed(k2_seed);
-
-                    ak = cosmo.sigma8*d(gen)/2;
-                    bk = cosmo.sigma8*d(gen)/2;
+                    ak = alpha*d(gen)/2;
+                    bk = alpha*d(gen)/2;
                 }
 
                 fourier_Sx(i, j, k)[0] = kx*ak;
