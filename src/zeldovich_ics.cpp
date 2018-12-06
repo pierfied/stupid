@@ -49,7 +49,7 @@ void zeldovich_ics::fourier_displacement_vec() {
                     bk = 0;
                 } else{
                     k2 = kx*kx + ky*ky + kz*kz;
-                    std::normal_distribution<> d{0, sqrt(P_at_k(sqrt(k2)) / k2)};
+                    std::normal_distribution<> d{0, sqrt(P_at_k(sqrt(k2))) / k2};
 
                     ak = cosmo.sigma8*d(gen)/2;
                     bk = cosmo.sigma8*d(gen)/2;
