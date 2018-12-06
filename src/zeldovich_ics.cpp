@@ -44,7 +44,7 @@ void zeldovich_ics::fourier_displacement_vec() {
             for (int k=0; k<=Np1/2; k++) {
                 double kz = 2*M_PI*k/Ng1;
 
-                if (i==Np1/2+1 && j==Np1/2+1 && k==0) {
+                if (i==Np1/2-1 && j==Np1/2-1 && k==0) {
                     ak = 0;
                     bk = 0;
                 } else{
