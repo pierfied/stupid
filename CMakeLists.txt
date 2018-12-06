@@ -1,10 +1,7 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.10)
 project(stupid)
 
 set(CMAKE_CXX_STANDARD 17)
-
-
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 
 find_package(OpenMP)
@@ -14,18 +11,24 @@ if (OPENMP_FOUND)
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif()
 
+add_subdirectory(lib/googletest)
+include_directories(lib/googletest/googletest/include)
+
+#include_directories(${GSL_INCLUDE_DIR})
+#find_package(GSL REQUIRED)    # See below (2)
+
 
 file(GLOB source src/*.cpp src/*.h)
 
 add_library(stupid SHARED ${source})
 
-target_link_libraries(stupid m fftw3 fftw3_omp gsl gslcblas)
+target_link_libraries(stupid fftw3_omp fftw3 m gsl gslcblas)
 
 target_include_directories(stupid PUBLIC include)
 
 
-add_executable(test.exe test/test.cpp)
+add_executable(test test/test.cpp)
 
-target_link_libraries(test.exe stupid gtest gtest_main pthread stdc++fs)
+target_link_libraries(test stupid gtest gtest_main pthread stdc++fs)
 
-target_include_directories(test.exe PUBLIC include src)
+target_include_directories(test PUBLIC include src)

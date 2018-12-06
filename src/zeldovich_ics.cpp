@@ -36,13 +36,13 @@ void zeldovich_ics::fourier_displacement_vec() {
     std::mt19937 gen{rd()};
 
     for (int i=0; i<Np1; i++) {
-        double kx = 2*M_PI*(i-Ng1/2+1)/Ng1;
+        double kx = 2*M_PI*(i-Np1/2+1)/Ng1;
 
         for (int j=0; j<Np1; j++) {
-            double ky = 2*M_PI*(j-Ng1+1)/Ng1;
+            double ky = 2*M_PI*(j-Np1+1)/Ng1;
 
             for (int k=0; k<Np1/2; k++) {
-                double kz = 2*M_PI*(k-Ng1+1)/Ng1;
+                double kz = 2*M_PI*(k-Np1+1)/Ng1;
 
                 if (i==0 && j==0 && k==0) {
                     ak = 0;

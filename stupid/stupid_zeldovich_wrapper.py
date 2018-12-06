@@ -43,7 +43,6 @@ class STUPID_ICS:
         args = _Args_ZAICs_Struct()
         args.num_particles = self.x.shape[0]
         args.x = self.x.ctypes.data_as(POINTER(c_double))
-        print(args.x)
         args.p = self.p.ctypes.data_as(POINTER(c_double))
         args.num_cells = self.num_cells
         args.sizeofk = self.k.size
