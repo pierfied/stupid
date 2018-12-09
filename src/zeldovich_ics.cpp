@@ -99,17 +99,20 @@ void zeldovich_ics::real_displacement_vec() {
 }
 
 void zeldovich_ics::apply_ZA() {
+    double D_a = cosmo.D(a0);
+    double Ddot_a = cosmo.Ddot(a0);
+
     int cur_particle = 0;
     for (int i = 0; i < Np1; ++i) {
         for (int j = 0; j < Np1; ++j) {
             for (int k = 0; k < Np1; ++k) {
-                plist->x->index(cur_particle, 0) -= cosmo.D(a0) * real_Sx(i, j, k);
-                plist->x->index(cur_particle, 1) -= cosmo.D(a0) * real_Sy(i, j, k);
-                plist->x->index(cur_particle, 2) -= cosmo.D(a0) * real_Sz(i, j, k);
+                plist->x->index(cur_particle, 0) -= D_a * real_Sx(i, j, k);
+                plist->x->index(cur_particle, 1) -= D_a * real_Sy(i, j, k);
+                plist->x->index(cur_particle, 2) -= D_a * real_Sz(i, j, k);
 
-                plist->p->index(cur_particle, 0) = -a0 * a0 * cosmo.Ddot(a0) * real_Sx(i, j, k);
-                plist->p->index(cur_particle, 1) = -a0 * a0 * cosmo.Ddot(a0) * real_Sy(i, j, k);
-                plist->p->index(cur_particle, 2) = -a0 * a0 * cosmo.Ddot(a0) * real_Sz(i, j, k);
+                plist->p->index(cur_particle, 0) = -a0 * a0 * Ddot_a * real_Sx(i, j, k);
+                plist->p->index(cur_particle, 1) = -a0 * a0 * Ddot_a * real_Sy(i, j, k);
+                plist->p->index(cur_particle, 2) = -a0 * a0 * Ddot_a * real_Sz(i, j, k);
 
                 cur_particle++;
             }
