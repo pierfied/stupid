@@ -28,9 +28,9 @@ void run_sim(stupid_args args) {
     cosmology *cosmo;
 
     if (args.use_real_units) {
-        cosmo = new cosmology(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.sigma8);
+        cosmo = new cosmology(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.H0);
     }else{
-        cosmo = new cosmology(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.sigma8);
+        cosmo = new cosmology(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.H0);
     }
 
     grid *g;
@@ -68,7 +68,7 @@ void setup_ics(stupid_ics_args args) {
 
     cosmology *cosmo;
 
-    cosmo = new cosmology(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.sigma8);
+    cosmo = new cosmology(args.Omega_m0, args.Omega_k0, args.Omega_l0, args.H0);
 
     zeldovich_ics *ics;
 

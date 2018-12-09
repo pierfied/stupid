@@ -5,23 +5,57 @@
 #include "cosmology.h"
 
 #include <math.h>
+#include <gsl/gsl_integration.h>
 
 double cosmology::f(double a) {
     return 1 / sqrt((Omega_m0 + Omega_k0 * a + Omega_l0 * a * a * a) / a);
 }
 
-double cosmology::adot(double a) {
-    return sqrt((Omega_m0 + Omega_k0 * a + Omega_l0 * a * a * a) / a);
+double adot(double a, double Omega_m0, double Omega_l0, double Omega_k0) {
+    return a * sqrt(Omega_m0 / (a * a * a) + Omega_l0 + Omega_k0 / (a * a));
+}
+
+double D_integrand(double a_prime, void *params) {
+    double *p = (double *) params;
+
+    double Omega_m0 = p[0];
+    double Omega_l0 = p[1];
+    double Omega_k0 = p[2];
+
+    return pow(adot(a_prime, Omega_m0, Omega_l0, Omega_k0), -3);
+}
+
+double cosmology::unnormalized_D(double a) {
+    double eps = 1.49e-08;
+    int limit = 50;
+
+    gsl_integration_workspace *w = gsl_integration_workspace_alloc(limit);
+
+    double result, error;
+    double params[3] = {Omega_m0, Omega_l0, Omega_k0};
+
+    gsl_function F;
+    F.function = &D_integrand;
+    F.params = params;
+
+    gsl_integration_qags(&F, 0, a, eps, eps, limit, w, &result, &error);
+
+    gsl_integration_workspace_free(w);
+
+    double uD = 2.5 * Omega_m0 * adot(a, Omega_m0, Omega_l0, Omega_k0) / a * result;
+
+    return uD;
 }
 
 double cosmology::D(double a) {
-    // From Carroll 1992 eq 29
-    return 2.5 * a * Omega_m0 / (pow(Omega_m0, 4./7.) - Omega_l0 + (1+0.5*Omega_m0)*(1+Omega_l0/70));
+    return unnormalized_D(a) / unnormalized_D(1);
 }
 
 double cosmology::Ddot(double a) {
-    //return adot(a) * f(a) * D(a) / a;
-    return 2.5 * adot(a) * Omega_m0 / (pow(Omega_m0, 4./7.) - Omega_l0 + (1+0.5*Omega_m0)*(1+Omega_l0/70));
+    double unnormalized_D_dot = Omega_m0 / (2 * a * adot(a, Omega_m0, Omega_l0, Omega_k0)) *
+                                (5 - 3 * unnormalized_D(a) / a - 2 * Omega_k0 * unnormalized_D(a) / Omega_m0);
+
+    return unnormalized_D_dot / unnormalized_D(1);
 }
 
 void cosmology::load_P(double *k, double *P, int size) {

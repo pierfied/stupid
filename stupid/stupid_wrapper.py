@@ -15,7 +15,7 @@ class _Args_Struct(Structure):
         ('Omega_m0', c_double),
         ('Omega_k0', c_double),
         ('Omega_l0', c_double),
-        ('sigma8', c_double),
+        ('H0', c_double),
         ('file_prefix', c_char_p),
         ('interp_scheme', c_int),
         ('integrator', c_int),
@@ -27,11 +27,10 @@ class _Args_Struct(Structure):
 
 
 class Cosmology:
-    def __init__(self, Omega_m0, Omega_k0, Omega_l0, sigma8=0, H0=0):
+    def __init__(self, Omega_m0, Omega_k0, Omega_l0, H0=0):
         self.Omega_m0 = Omega_m0
         self.Omega_k0 = Omega_k0
         self.Omega_l0 = Omega_l0
-        self.sigma8 = sigma8
         self.H0 = H0
 
 
@@ -96,7 +95,7 @@ class STUPID:
         args.Omega_m0 = self.cosmo.Omega_m0
         args.Omega_k0 = self.cosmo.Omega_k0
         args.Omega_l0 = self.cosmo.Omega_l0
-        args.sigma8 = self.cosmo.sigma8
+        args.H0 = self.cosmo.H0
         args.file_prefix = c_char_p(self.file_prefix.encode('utf-8'))
         args.interp_scheme = self.interp_scheme
         args.integrator = self.integrator
