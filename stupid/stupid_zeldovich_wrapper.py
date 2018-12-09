@@ -17,7 +17,7 @@ class _Args_ZAICs_Struct(Structure):
         ('Omega_m0', c_double),
         ('Omega_k0', c_double),
         ('Omega_l0', c_double),
-        ('sigma8', c_double),
+        ('H0', c_double),
     ]
 
 
@@ -53,8 +53,8 @@ class STUPID_ICS:
         args.Omega_m0 = self.cosmo.Omega_m0
         args.Omega_k0 = self.cosmo.Omega_k0
         args.Omega_l0 = self.cosmo.Omega_l0
-        args.sigma8 = self.cosmo.sigma8
-        print(self.cosmo.sigma8)
+        args.H0 = self.cosmo.H0
+        print(self.cosmo.H0)
 
         print('Set up initial conditions')
 

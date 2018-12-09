@@ -16,7 +16,7 @@ typedef struct {
     double Omega_m0;
     double Omega_k0;
     double Omega_l0;
-    double sigma8;
+    double H0;
     char *file_prefix;
     int interp_scheme;
     int integrator;
@@ -38,7 +38,7 @@ typedef struct {
     double Omega_m0;
     double Omega_k0;
     double Omega_l0;
-    double sigma8;
+    double H0;
 } stupid_ics_args;
 
 void run_sim(stupid_args args);
