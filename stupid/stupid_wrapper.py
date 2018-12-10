@@ -5,10 +5,10 @@ import numpy as np
 
 class _Args_Struct(Structure):
     _fields_ = [
-        ('num_particles', c_int),
+        ('num_particles', c_long),
         ('x', POINTER(c_double)),
         ('p', POINTER(c_double)),
-        ('num_cells', c_int),
+        ('num_cells', c_long),
         ('a0', c_double),
         ('af', c_double),
         ('delta_a', c_double),
@@ -17,9 +17,9 @@ class _Args_Struct(Structure):
         ('Omega_l0', c_double),
         ('H0', c_double),
         ('file_prefix', c_char_p),
-        ('interp_scheme', c_int),
-        ('integrator', c_int),
-        ('write_nth_step', c_int),
+        ('interp_scheme', c_long),
+        ('integrator', c_long),
+        ('write_nth_step', c_long),
         ('use_real_units', c_bool),
         ('r0', c_double),
         ('t0', c_double)

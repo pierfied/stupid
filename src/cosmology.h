@@ -41,7 +41,7 @@ public:
 
     double Ddot(double a);
 
-    void load_P(double *k, double *P, int size);
+    void load_P(double *k, double *P, long size);
 
     inline double P_at_k(double k) {
         return gsl_spline_eval(spline, k, acc);

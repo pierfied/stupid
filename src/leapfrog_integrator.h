@@ -10,18 +10,18 @@
 #include <math.h>
 
 class leapfrog_integrator : public integrator {
-    const int num_steps;
+    const long num_steps;
     const double delta_a;
     const double a0;
     const bool write_pos;
-    const int write_nth_step;
+    const long write_nth_step;
 
 public:
-    leapfrog_integrator(double a0, int num_steps, double delta_a, grid &g) :
+    leapfrog_integrator(double a0, long num_steps, double delta_a, grid &g) :
             integrator(g, std::string()), num_steps(num_steps), delta_a(delta_a), a0(a0), write_pos(false),
             write_nth_step(0) {}
 
-    leapfrog_integrator(double a0, int num_steps, double delta_a, grid &g, std::string file_prefix, int write_nth_step)
+    leapfrog_integrator(double a0, long num_steps, double delta_a, grid &g, std::string file_prefix, long write_nth_step)
             : integrator(g, file_prefix), num_steps(num_steps), delta_a(delta_a), a0(a0), write_pos(true),
               write_nth_step(write_nth_step) {}
 
@@ -29,7 +29,7 @@ public:
             integrator(g, std::string()), delta_a(delta_a), a0(a0), num_steps((int) ceil((a_final - a0) / delta_a)),
             write_pos(false), write_nth_step(0) {}
 
-    leapfrog_integrator(double a0, double a_final, double delta_a, grid &g, std::string file_prefix, int write_nth_step)
+    leapfrog_integrator(double a0, double a_final, double delta_a, grid &g, std::string file_prefix, long write_nth_step)
             : integrator(g, file_prefix), delta_a(delta_a), a0(a0), num_steps((int) ceil((a_final - a0) / delta_a)),
               write_pos(true), write_nth_step(write_nth_step) {}
 

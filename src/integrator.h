@@ -10,7 +10,7 @@
 #include <string>
 
 class integrator {
-    int write_num = 0;
+    long write_num = 0;
 
     const std::string file_prefix;
 

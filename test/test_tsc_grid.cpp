@@ -7,18 +7,18 @@
 #include <tsc_grid.h>
 
 TEST(tsc_grid, flat_density) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = n * n * n;
-    int num_dims = 3;
+    long num_particles = n * n * n;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    int cur_particle = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 x(cur_particle, 0) = i;
                 x(cur_particle, 1) = j;
                 x(cur_particle, 2) = k;
@@ -33,9 +33,9 @@ TEST(tsc_grid, flat_density) {
 
     grid.populate_delta_grid();
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 EXPECT_DOUBLE_EQ(0, grid.real_grid(i, j, k));
             }
         }
@@ -43,18 +43,18 @@ TEST(tsc_grid, flat_density) {
 }
 
 TEST(tsc_grid, flat_density_half_offset) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = n * n * n;
-    int num_dims = 3;
+    long num_particles = n * n * n;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    int cur_particle = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 x(cur_particle, 0) = i + 0.5;
                 x(cur_particle, 1) = j + 0.5;
                 x(cur_particle, 2) = k + 0.5;
@@ -69,9 +69,9 @@ TEST(tsc_grid, flat_density_half_offset) {
 
     grid.populate_delta_grid();
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 EXPECT_DOUBLE_EQ(0, grid.real_grid(i, j, k));
             }
         }
@@ -79,17 +79,17 @@ TEST(tsc_grid, flat_density_half_offset) {
 }
 
 TEST(tsc_grid, alternating_density_2d) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = n * n;
-    int num_dims = 3;
+    long num_particles = n * n;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    int cur_particle = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+    long cur_particle = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
             x(cur_particle, 0) = i - i % 2;
             x(cur_particle, 1) = j - j % 2;
 
@@ -102,8 +102,8 @@ TEST(tsc_grid, alternating_density_2d) {
 
     grid.populate_delta_grid();
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
             if (i % 2 == 0 && j % 2 == 0) {
                 EXPECT_DOUBLE_EQ(15.875, grid.real_grid(i, j, 0));
             } else if (i % 2 == 0 && j % 2 == 1) {
@@ -118,18 +118,18 @@ TEST(tsc_grid, alternating_density_2d) {
 }
 
 TEST(tsc_grid, alternating_density_3d) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = n * n * n;
-    int num_dims = 3;
+    long num_particles = n * n * n;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    int cur_particle = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 x(cur_particle, 0) = i - i % 2;
                 x(cur_particle, 1) = j - j % 2;
                 x(cur_particle, 2) = k - k % 2;
@@ -144,9 +144,9 @@ TEST(tsc_grid, alternating_density_3d) {
 
     grid.populate_delta_grid();
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 if (i % 2 == 0 && j % 2 == 0 && k % 2 == 0) {
                     EXPECT_DOUBLE_EQ(2.375, grid.real_grid(i, j, k));
                 } else if (i % 2 == 0 && j % 2 == 0 && k % 2 == 1) {
@@ -170,18 +170,18 @@ TEST(tsc_grid, alternating_density_3d) {
 }
 
 TEST(tsc_grid, fft_recover) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = n * n * n;
-    int num_dims = 3;
+    long num_particles = n * n * n;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    int cur_particle = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 x(cur_particle, 0) = i + 0.5;
                 x(cur_particle, 1) = j + 0.5;
                 x(cur_particle, 2) = k + 0.5;
@@ -200,9 +200,9 @@ TEST(tsc_grid, fft_recover) {
     grid.real_grid.reset_zero();
     grid.ifft();
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 EXPECT_DOUBLE_EQ(0, grid.real_grid(i, j, k));
             }
         }
@@ -210,18 +210,18 @@ TEST(tsc_grid, fft_recover) {
 }
 
 TEST(tsc_grid, flat_potential) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = n * n * n;
-    int num_dims = 3;
+    long num_particles = n * n * n;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    int cur_particle = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 x(cur_particle, 0) = i;
                 x(cur_particle, 1) = j;
                 x(cur_particle, 2) = k;
@@ -239,9 +239,9 @@ TEST(tsc_grid, flat_potential) {
     double a = 1;
     grid.compute_potential(a);
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 EXPECT_DOUBLE_EQ(0, grid.real_grid(i, j, k));
             }
         }
@@ -249,18 +249,18 @@ TEST(tsc_grid, flat_potential) {
 }
 
 TEST(tsc_grid, alternating_potential) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = n * n * n;
-    int num_dims = 3;
+    long num_particles = n * n * n;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    int cur_particle = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 x(cur_particle, 0) = i - i % 2;
                 x(cur_particle, 1) = j - j % 2;
                 x(cur_particle, 2) = k - k % 2;
@@ -287,10 +287,10 @@ TEST(tsc_grid, alternating_potential) {
     EXPECT_LT(face_potential, edge_potential);
     EXPECT_LT(edge_potential, corner_potential);
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
-                int num_off = i % 2 + j % 2 + k % 2;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
+                long num_off = i % 2 + j % 2 + k % 2;
 
                 switch (num_off) {
                     case 0:
@@ -312,10 +312,10 @@ TEST(tsc_grid, alternating_potential) {
 }
 
 TEST(tsc_grid, accel_2body_x) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = 2;
-    int num_dims = 3;
+    long num_particles = 2;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
@@ -347,10 +347,10 @@ TEST(tsc_grid, accel_2body_x) {
 }
 
 TEST(tsc_grid, accel_2body_y) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = 2;
-    int num_dims = 3;
+    long num_particles = 2;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
@@ -382,10 +382,10 @@ TEST(tsc_grid, accel_2body_y) {
 }
 
 TEST(tsc_grid, accel_2body_z) {
-    int n = 10;
+    long n = 10;
 
-    int num_particles = 2;
-    int num_dims = 3;
+    long num_particles = 2;
+    long num_dims = 3;
 
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);

@@ -13,15 +13,15 @@ class zeldovich_ics: public initial_conditions {
 
     double a0;
 
-    const int Np1;
-    const int Ng1;
+    const long Np1;
+    const long Ng1;
 
     array_3d<double> real_Sx, real_Sy, real_Sz;
     array_3d<fftw_complex> fourier_Sx, fourier_Sy, fourier_Sz;
 
     double *k;
     double *P;
-    const int sizeofk;
+    const long sizeofk;
 
     fftw_plan backward_planx, backward_plany, backward_planz;
 
@@ -29,7 +29,7 @@ class zeldovich_ics: public initial_conditions {
     gsl_spline *spline;
 
 public:
-    zeldovich_ics(cosmology cosmo, particle_list &plist, int Ng1, double *k, double *P, int sizeofk, double a0) :
+    zeldovich_ics(cosmology cosmo, particle_list &plist, long Ng1, double *k, double *P, long sizeofk, double a0) :
         initial_conditions(plist), cosmo(cosmo), a0(a0), Np1(int(cbrt(plist.num_particles))), Ng1(Ng1),
         k(k), P(P), sizeofk(sizeofk),
         real_Sx(Np1, Np1, Np1), real_Sy(Np1, Np1, Np1), real_Sz(Np1, Np1, Np1),

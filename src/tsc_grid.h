@@ -10,21 +10,21 @@
 
 class tsc_grid : public grid {
 public:
-    tsc_grid(int n, particle_list &plist, cosmology cosmo) : grid(n, plist, cosmo) {}
+    tsc_grid(long n, particle_list &plist, cosmology cosmo) : grid(n, plist, cosmo) {}
 
     void populate_delta_grid() override;
 
-    inline double particle_accel(int particle_ind, int dim) override {
-        int i = modulo(plist->x->index(particle_ind, 0), n);
-        int j = modulo(plist->x->index(particle_ind, 1), n);
-        int k = modulo(plist->x->index(particle_ind, 2), n);
+    inline double particle_accel(long particle_ind, long dim) override {
+        long i = modulo(plist->x->index(particle_ind, 0), n);
+        long j = modulo(plist->x->index(particle_ind, 1), n);
+        long k = modulo(plist->x->index(particle_ind, 2), n);
 
-        int iu = modulo((i + 1), n);
-        int ju = modulo((j + 1), n);
-        int ku = modulo((k + 1), n);
-        int il = modulo((i - 1), n);
-        int jl = modulo((j - 1), n);
-        int kl = modulo((k - 1), n);
+        long iu = modulo((i + 1), n);
+        long ju = modulo((j + 1), n);
+        long ku = modulo((k + 1), n);
+        long il = modulo((i - 1), n);
+        long jl = modulo((j - 1), n);
+        long kl = modulo((k - 1), n);
 
         double dx = plist->x->index(particle_ind, 0) - i;
         double dy = plist->x->index(particle_ind, 1) - j;

@@ -11,7 +11,7 @@ void integrator::write_positions(double a) {
 
     if (g->cosmo.use_real_units) {
 #pragma omp parallel for
-        for (int i = 0; i < g->plist->num_particles; ++i) {
+        for (long i = 0; i < g->plist->num_particles; ++i) {
             g->plist->x->index(i,0) *= a * g->cosmo.u.r0;
             g->plist->x->index(i,1) *= a * g->cosmo.u.r0;
             g->plist->x->index(i,2) *= a * g->cosmo.u.r0;
@@ -23,7 +23,7 @@ void integrator::write_positions(double a) {
 
     if (g->cosmo.use_real_units) {
 #pragma omp parallel for
-        for (int i = 0; i < g->plist->num_particles; ++i) {
+        for (long i = 0; i < g->plist->num_particles; ++i) {
             g->plist->x->index(i,0) /= a * g->cosmo.u.r0;
             g->plist->x->index(i,1) /= a * g->cosmo.u.r0;
             g->plist->x->index(i,2) /= a * g->cosmo.u.r0;
@@ -41,7 +41,7 @@ void integrator::write_momentum(double a) {
 
     if (g->cosmo.use_real_units) {
 #pragma omp parallel for
-        for (int i = 0; i < g->plist->num_particles; ++i) {
+        for (long i = 0; i < g->plist->num_particles; ++i) {
             g->plist->p->index(i,0) *= v0 / a;
             g->plist->p->index(i,1) *= v0 / a;
             g->plist->p->index(i,2) *= v0 / a;
@@ -53,7 +53,7 @@ void integrator::write_momentum(double a) {
 
     if (g->cosmo.use_real_units) {
 #pragma omp parallel for
-        for (int i = 0; i < g->plist->num_particles; ++i) {
+        for (long i = 0; i < g->plist->num_particles; ++i) {
             g->plist->p->index(i,0) /= v0 / a;
             g->plist->p->index(i,1) /= v0 / a;
             g->plist->p->index(i,2) /= v0 / a;

@@ -27,7 +27,7 @@ double D_integrand(double a_prime, void *params) {
 
 double cosmology::unnormalized_D(double a) {
     double eps = 1.49e-08;
-    int limit = 50;
+    long limit = 50;
 
     gsl_integration_workspace *w = gsl_integration_workspace_alloc(limit);
 
@@ -58,7 +58,7 @@ double cosmology::Ddot(double a) {
     return unnormalized_D_dot / unnormalized_D(1);
 }
 
-void cosmology::load_P(double *k, double *P, int size) {
+void cosmology::load_P(double *k, double *P, long size) {
     acc = gsl_interp_accel_alloc();
     spline = gsl_spline_alloc(gsl_interp_cspline, size);
     gsl_spline_init(spline, k, P, size);

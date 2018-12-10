@@ -18,7 +18,7 @@ void run_sim(stupid_args args) {
     array_2d<double> x(args.num_particles, NUM_DIMS);
     array_2d<double> p(args.num_particles, NUM_DIMS);
 
-    for (int i = 0; i < args.num_particles * NUM_DIMS; ++i) {
+    for (long i = 0; i < args.num_particles * NUM_DIMS; ++i) {
         x.data[i] = args.x[i];
         p.data[i] = args.p[i];
     }
@@ -76,7 +76,7 @@ void setup_ics(stupid_ics_args args) {
 
     ics->setup_ics();
 
-    for (int i = 0; i < args.num_particles * NUM_DIMS; ++i) {
+    for (long i = 0; i < args.num_particles * NUM_DIMS; ++i) {
         args.x[i] = x.data[i];
         args.p[i] = p.data[i];
     }
