@@ -9,8 +9,8 @@
 
 class particle_list {
 public:
-    const int num_particles;
-    const int num_dims;
+    const long num_particles;
+    const long num_dims;
     array_2d<double> *x;
     array_2d<double> *p;
 

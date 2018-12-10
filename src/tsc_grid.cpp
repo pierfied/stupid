@@ -7,17 +7,17 @@
 void tsc_grid::populate_delta_grid() {
     real_grid.reset_zero();
 
-    for (int p = 0; p < plist->num_particles; ++p) {
-        int i = modulo(plist->x->index(p, 0), n);
-        int j = modulo(plist->x->index(p, 1), n);
-        int k = modulo(plist->x->index(p, 2), n);
+    for (long p = 0; p < plist->num_particles; ++p) {
+        long i = modulo(plist->x->index(p, 0), n);
+        long j = modulo(plist->x->index(p, 1), n);
+        long k = modulo(plist->x->index(p, 2), n);
 
-        int iu = modulo((i + 1), n);
-        int ju = modulo((j + 1), n);
-        int ku = modulo((k + 1), n);
-        int il = modulo((i - 1), n);
-        int jl = modulo((j - 1), n);
-        int kl = modulo((k - 1), n);
+        long iu = modulo((i + 1), n);
+        long ju = modulo((j + 1), n);
+        long ku = modulo((k + 1), n);
+        long il = modulo((i - 1), n);
+        long jl = modulo((j - 1), n);
+        long kl = modulo((k - 1), n);
 
         double dx = plist->x->index(p, 0) - i;
         double dy = plist->x->index(p, 1) - j;
@@ -101,9 +101,9 @@ void tsc_grid::populate_delta_grid() {
     }
 
 #pragma omp parallel for
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 real_grid(i, j, k) = real_grid(i, j, k) / avg_particle_density - 1;
             }
         }

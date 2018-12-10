@@ -12,23 +12,23 @@ class array_2d {
 public:
     T *data;
 
-    const int nx;
-    const int ny;
+    const long nx;
+    const long ny;
 
-    array_2d(int nx, int ny) : nx(nx), ny(ny) {
+    array_2d(long nx, long ny) : nx(nx), ny(ny) {
         data = new T[nx * ny]();
     }
 
-    inline T &operator()(int i, int j) {
+    inline T &operator()(long i, long j) {
         return data[i * ny + j];
     }
 
-    inline T &index(int i, int j) {
+    inline T &index(long i, long j) {
         return operator()(i, j);
     }
 
     void reset_zero() {
-        for (int i = 0; i < nx * ny; ++i) {
+        for (long i = 0; i < nx * ny; ++i) {
             data[i] = T();
         }
     }
@@ -44,24 +44,24 @@ class array_3d {
 public:
     T *data;
 
-    const int nx;
-    const int ny;
-    const int nz;
+    const long nx;
+    const long ny;
+    const long nz;
 
-    array_3d(int nx, int ny, int nz) : nx(nx), ny(ny), nz(nz) {
+    array_3d(long nx, long ny, long nz) : nx(nx), ny(ny), nz(nz) {
         data = new T[nx * ny * nz]();
     }
 
-    inline T &operator()(int i, int j, int k) {
+    inline T &operator()(long i, long j, long k) {
         return data[(i * ny + j) * nz + k];
     }
 
-    inline T &index(int i, int j, int k) {
+    inline T &index(long i, long j, long k) {
         return operator()(i, j, k);
     }
 
     void reset_zero() {
-        for (int i = 0; i < nx * ny * nz; ++i) {
+        for (long i = 0; i < nx * ny * nz; ++i) {
             data[i] = T();
         }
     }

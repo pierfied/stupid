@@ -16,7 +16,7 @@
 
 class grid {
 public:
-    const int n;
+    const long n;
 
     particle_list *plist;
 
@@ -30,7 +30,7 @@ public:
     fftw_plan forward_plan;
     fftw_plan backward_plan;
 
-    grid(int n, particle_list &plist, cosmology cosmo) :
+    grid(long n, particle_list &plist, cosmology cosmo) :
             n(n), real_grid(n, n, n), fourier_grid(n, n, (n / 2 + 1)), plist(&plist),
             cosmo(cosmo), avg_particle_density((double) plist.num_particles / (n * n * n)) {
         fftw_init_threads();
@@ -45,11 +45,11 @@ public:
         fftw_cleanup_threads();
     }
 
-    inline int modulo(int a, int b) {
+    inline long modulo(long a, long b) {
         return (a % b + b) % b;
     }
 
-    inline double modulo(double a, int b) {
+    inline double modulo(double a, long b) {
         return fmod(fmod(a, b) + b, b);
     }
 
@@ -63,9 +63,9 @@ public:
 
     void compute_potential(double a);
 
-    inline double grid_accel(int i, int j, int k, int dim) {
-        int plus_neighbor;
-        int minus_neighbor;
+    inline double grid_accel(long i, long j, long k, long dim) {
+        long plus_neighbor;
+        long minus_neighbor;
 
         switch (dim) {
             case 0:
@@ -86,7 +86,7 @@ public:
         }
     }
 
-    virtual double particle_accel(int particle_ind, int dim) = 0;
+    virtual double particle_accel(long particle_ind, long dim) = 0;
 
     void rebound_positions();
 };

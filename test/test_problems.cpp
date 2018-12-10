@@ -12,15 +12,15 @@
 TEST(problems, one_dimensional_plane_wave) {
     cosmology cosmo(1, 0, 0, 0);
 
-    const int n = 32;
+    const long n = 32;
 
-    int npart = 16;
-    int num_particles = npart*npart*npart;
-    int num_dims = 3;
+    long npart = 16;
+    long num_particles = npart*npart*npart;
+    long num_dims = 3;
 
     double a0 = 0.2;
     double af = 0.6;
-    int num_steps = 1000;
+    long num_steps = 1000;
     double delta_a = (af - a0) / num_steps;
 
     double across = 5*a0;
@@ -30,10 +30,10 @@ TEST(problems, one_dimensional_plane_wave) {
     array_2d<double> x(num_particles, num_dims);
     array_2d<double> p(num_particles, num_dims);
 
-    int cur_particle = 0;
-    for (int i = 0; i < npart; ++i) {
-        for (int j = 0; j < npart; ++j) {
-            for (int k = 0; k < npart; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < npart; ++i) {
+        for (long j = 0; j < npart; ++j) {
+            for (long k = 0; k < npart; ++k) {
                 x(cur_particle, 0) = double(i)*n/npart + cosmo.D(a0) * amplitude * sin(wave_num*i*n/npart);
                 x(cur_particle, 1) = double(j)*n/npart;
                 x(cur_particle, 2) = double(k)*n/npart;
@@ -54,9 +54,9 @@ TEST(problems, one_dimensional_plane_wave) {
     li.run_sim();
 
     cur_particle = 0;
-    for (int i = 0; i < npart; ++i) {
-        for (int j = 0; j < npart; ++j) {
-            for (int k = 0; k < npart; ++k) {
+    for (long i = 0; i < npart; ++i) {
+        for (long j = 0; j < npart; ++j) {
+            for (long k = 0; k < npart; ++k) {
                 double analytic = grid.modulo(double(i)*n/npart + cosmo.D(af) * amplitude * sin(wave_num*i*n/npart), n);
                 EXPECT_NEAR(x(cur_particle, 0), analytic, 1e-2*analytic);
 

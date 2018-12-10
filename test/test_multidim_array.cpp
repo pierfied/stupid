@@ -6,7 +6,7 @@
 #include <multidim_array.h>
 
 TEST(multidim_array, dims_2d) {
-    int n = 10;
+    long n = 10;
 
     array_2d<double> arr(n, n);
 
@@ -15,47 +15,47 @@ TEST(multidim_array, dims_2d) {
 }
 
 TEST(multidim_array, write_read_2d) {
-    int n = 10;
+    long n = 10;
 
     array_2d<double> arr(n, n);
 
-    int count = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+    long count = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
             arr(i, j) = count++;
         }
     }
 
     count = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
             EXPECT_EQ(count++, arr(i, j));
         }
     }
 }
 
 TEST(multidim_array, zero_2d) {
-    int n = 10;
+    long n = 10;
 
     array_2d<double> arr(n, n);
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
             arr(i, j) = 1;
         }
     }
 
     arr.reset_zero();
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
             EXPECT_EQ(0, arr(i, j));
         }
     }
 }
 
 TEST(multidim_array, dims_3d) {
-    int n = 10;
+    long n = 10;
 
     array_3d<double> arr(n, n, n);
 
@@ -65,23 +65,23 @@ TEST(multidim_array, dims_3d) {
 }
 
 TEST(multidim_array, write_read_3d) {
-    int n = 10;
+    long n = 10;
 
     array_3d<double> arr(n, n, n);
 
-    int count = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    long count = 0;
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 arr(i, j, k) = count++;
             }
         }
     }
 
     count = 0;
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 EXPECT_EQ(count++, arr(i, j, k));
             }
         }
@@ -89,13 +89,13 @@ TEST(multidim_array, write_read_3d) {
 }
 
 TEST(multidim_array, zero_3d) {
-    int n = 10;
+    long n = 10;
 
     array_3d<double> arr(n, n, n);
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 arr(i, j, k) = 1;
             }
         }
@@ -103,9 +103,9 @@ TEST(multidim_array, zero_3d) {
 
     arr.reset_zero();
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            for (int k = 0; k < n; ++k) {
+    for (long i = 0; i < n; ++i) {
+        for (long j = 0; j < n; ++j) {
+            for (long k = 0; k < n; ++k) {
                 EXPECT_EQ(0, arr(i, j, k));
             }
         }

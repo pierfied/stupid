@@ -6,10 +6,10 @@ extern "C" {
 #endif
 
 typedef struct {
-    int num_particles;
+    long num_particles;
     double *x;
     double *p;
-    int num_cells;
+    long num_cells;
     double a0;
     double af;
     double delta_a;
@@ -18,9 +18,9 @@ typedef struct {
     double Omega_l0;
     double H0;
     char *file_prefix;
-    int interp_scheme;
-    int integrator;
-    int write_nth_step;
+    long interp_scheme;
+    long integrator;
+    long write_nth_step;
     bool use_real_units;
     double r0;
     double t0;
@@ -29,9 +29,9 @@ typedef struct {
 typedef struct {
     double *x;
     double *p;
-    int num_particles;
-    int num_cells;
-    int sizeofk;
+    long num_particles;
+    long num_cells;
+    long sizeofk;
     double *k;
     double *P;
     double a0;

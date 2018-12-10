@@ -13,10 +13,10 @@ void zeldovich_ics::load_P() {
 }
 
 void zeldovich_ics::generate_uniform_distribution() {
-    int cur_particle = 0;
-    for (int i = 0; i < Np1; ++i) {
-        for (int j = 0; j < Np1; ++j) {
-            for (int k = 0; k < Np1; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < Np1; ++i) {
+        for (long j = 0; j < Np1; ++j) {
+            for (long k = 0; k < Np1; ++k) {
                 plist->x->index(cur_particle, 0) = double(i) * Ng1 / Np1;
                 plist->x->index(cur_particle, 1) = double(j) * Ng1 / Np1;
                 plist->x->index(cur_particle, 2) = double(k) * Ng1 / Np1;
@@ -37,7 +37,7 @@ void zeldovich_ics::fourier_displacement_vec() {
 
     double alpha = 1;
 
-    for (int i = 0; i < Np1; i++) {
+    for (long i = 0; i < Np1; i++) {
         double kx;
 
         if (i < Np1 / 2) {
@@ -46,7 +46,7 @@ void zeldovich_ics::fourier_displacement_vec() {
             kx = 2 * M_PI * (i - Np1) / Ng1;
         }
 
-        for (int j = 0; j < Np1; j++) {
+        for (long j = 0; j < Np1; j++) {
             double ky;
 
             if (j < Np1 / 2) {
@@ -55,7 +55,7 @@ void zeldovich_ics::fourier_displacement_vec() {
                 ky = 2 * M_PI * (j - Np1) / Ng1;
             }
 
-            for (int k = 0; k <= Np1 / 2; k++) {
+            for (long k = 0; k <= Np1 / 2; k++) {
                 double kz = 2 * M_PI * k / Ng1;
 
                 if (i == 0 && j == 0 && k == 0) {
@@ -87,9 +87,9 @@ void zeldovich_ics::real_displacement_vec() {
 
     double norm = pow(Np1, 1.5);
 
-    for (int i = 0; i < Np1; ++i) {
-        for (int j = 0; j < Np1; ++j) {
-            for (int k = 0; k < Np1; ++k) {
+    for (long i = 0; i < Np1; ++i) {
+        for (long j = 0; j < Np1; ++j) {
+            for (long k = 0; k < Np1; ++k) {
                 real_Sx(i, j, k) /= norm;
                 real_Sy(i, j, k) /= norm;
                 real_Sz(i, j, k) /= norm;
@@ -102,10 +102,10 @@ void zeldovich_ics::apply_ZA() {
     double D_a = cosmo.D(a0);
     double Ddot_a = cosmo.Ddot(a0);
 
-    int cur_particle = 0;
-    for (int i = 0; i < Np1; ++i) {
-        for (int j = 0; j < Np1; ++j) {
-            for (int k = 0; k < Np1; ++k) {
+    long cur_particle = 0;
+    for (long i = 0; i < Np1; ++i) {
+        for (long j = 0; j < Np1; ++j) {
+            for (long k = 0; k < Np1; ++k) {
                 plist->x->index(cur_particle, 0) -= D_a * real_Sx(i, j, k);
                 plist->x->index(cur_particle, 1) -= D_a * real_Sy(i, j, k);
                 plist->x->index(cur_particle, 2) -= D_a * real_Sz(i, j, k);

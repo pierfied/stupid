@@ -8,9 +8,9 @@ class _Args_ZAICs_Struct(Structure):
     _fields_ = [
         ('x', POINTER(c_double)),
         ('p', POINTER(c_double)),
-        ('num_particles', c_int),
-        ('num_cells', c_int),
-        ('sizeofk', c_int),
+        ('num_particles', c_long),
+        ('num_cells', c_long),
+        ('sizeofk', c_long),
         ('k', POINTER(c_double)),
         ('P', POINTER(c_double)),
         ('a0', c_double),
